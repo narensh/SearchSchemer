@@ -37,6 +37,9 @@ public final class SearchSchemer {
    *           throw when I/O error occurs
    */
   private void run(String[] args) throws IOException {
-    //TODO: implementation
+    SearchSchemerArguments arguments = CommandLineReader.parse(args);
+    if (arguments != null) {
+      //TODO initialize schemer and run
+    }
   }
 }
