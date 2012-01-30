@@ -55,7 +55,6 @@ public final class CommandLineReader {
       return arguments;
     } catch (Exception e) {
       System.err.println("Error during starup: " + e.getMessage());
-      e.printStackTrace();
       printHelp();
     }
     return null;
