@@ -1,12 +1,13 @@
 package com.sematext.searchschemer.writer;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
 
+import com.sematext.searchschemer.client.ConfigurationType;
 import com.sematext.searchschemer.index.FieldAttributes;
 import com.sematext.searchschemer.index.IndexStructure;
+import com.sematext.searchschemer.type.Mapper;
 
 /**
  * Implementation of {@link IndexStructureWriter} for Apache Solr.
@@ -14,7 +15,7 @@ import com.sematext.searchschemer.index.IndexStructure;
  * @author Sematext
  * 
  */
-public class SolrIndexStructureWriter implements IndexStructureWriter {
+public class SolrIndexStructureWriter extends AbstractIndexStructureWriter {
   protected SolrIndexStructureWriter() {
   }
 
@@ -22,23 +23,6 @@ public class SolrIndexStructureWriter implements IndexStructureWriter {
    * {@inheritDoc}
    */
   @Override
-  public void write(IndexStructure structure, String fileName) throws IOException {
-    FileWriter writer = new FileWriter(fileName);
-    write(structure, writer);
-    writer.flush();
-    writer.close();
-  }
-
-  /**
-   * Writes index structure.
-   * 
-   * @param structure
-   *          index structure
-   * @param writer
-   *          writer instance
-   * @throws IOException
-   *           thrown when I/O error occurs
-   */
   protected void write(IndexStructure structure, Writer writer) throws IOException {
     if (!structure.fields().isEmpty()) {
       for (Map.Entry<String, FieldAttributes> field : structure.fields().entrySet()) {
@@ -71,7 +55,7 @@ public class SolrIndexStructureWriter implements IndexStructureWriter {
     writer.write(" name=\"");
     writer.write(fieldName);
     writer.write("\" type=\"");
-    writer.write(attr.getType());
+    writer.write(Mapper.getTypeName(ConfigurationType.SOLR, attr.getType()));
     writer.write("\" indexed=\"");
     writer.write(attr.getIndexed().toString().toLowerCase());
     writer.write("\" stored=\"");
