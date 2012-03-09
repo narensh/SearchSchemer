@@ -50,11 +50,12 @@ public abstract class FieldAttributes {
    * @return field type
    */
   public FieldType getFieldType() {
-    FieldType type = FieldType.valueOf(this.type);
-    if (type == null) {
+    try {
+      FieldType type = FieldType.valueOf(this.type.toUpperCase());
+      return type;
+    } catch (Exception ex) {
       return FieldType.STRING;
     }
-    return type;
   }
 
   public String getType() {

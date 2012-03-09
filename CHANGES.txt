@@ -1,1 +1,10 @@
-0.0.1 - Initial version
+Version: 0.0.2 
+Date: 2012-03-09
+Changes:
+ * First working version
+ * Ability to read Apache Solr schema.xml and write to rest of the configuration files
+
+------
+Version: 0.0.1
+Changes:
+ * Initial version

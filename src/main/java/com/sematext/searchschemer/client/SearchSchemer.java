@@ -2,6 +2,11 @@ package com.sematext.searchschemer.client;
 
 import java.io.IOException;
 
+import com.sematext.searchschemer.reader.IndexStructureReader;
+import com.sematext.searchschemer.reader.IndexStructureReaderFactory;
+import com.sematext.searchschemer.writer.IndexStructureWriter;
+import com.sematext.searchschemer.writer.IndexStructureWriterFactory;
+
 /**
  * Main class.
  * 
@@ -39,7 +44,9 @@ public final class SearchSchemer {
   private void run(String[] args) throws IOException {
     SearchSchemerArguments arguments = CommandLineReader.parse(args);
     if (arguments != null) {
-      //TODO initialize schemer and run
+      IndexStructureReader reader = IndexStructureReaderFactory.getReader(arguments.getInputType());
+      IndexStructureWriter writer = IndexStructureWriterFactory.getWriter(arguments.getOutputType());
+      writer.write(reader.read(arguments.getInputFileName()), arguments.getOutputFileName());
     }
   }
 }
