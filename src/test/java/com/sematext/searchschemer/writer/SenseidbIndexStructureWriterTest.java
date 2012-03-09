@@ -15,7 +15,7 @@ public class SenseidbIndexStructureWriterTest extends TestCase {
   @Test
   public void testWriteNonDynamic() throws Exception {
     IndexStructure structure = new BasicIndexStructure();
-    structure.addField("cat", new FieldAttributes(FieldType.STRING, true, true), false);
+    structure.addField("cat", new FieldAttributes("cat", FieldType.STRING, true, true, false, false), false);
 
     StringWriter writer = new StringWriter();
     SenseidbIndexStructureWriter senseiIndexStructureWriter = new SenseidbIndexStructureWriter();
@@ -28,8 +28,8 @@ public class SenseidbIndexStructureWriterTest extends TestCase {
   @Test
   public void testWriteNonDynamicMultiple() throws Exception {
     IndexStructure structure = new BasicIndexStructure();
-    structure.addField("cat", new FieldAttributes(FieldType.STRING, true, true), false);
-    structure.addField("menu", new FieldAttributes(FieldType.STRING, false, true), false);
+    structure.addField("cat", new FieldAttributes("cat", FieldType.STRING, true, true, false, false), false);
+    structure.addField("menu", new FieldAttributes("menu", FieldType.STRING, false, true, false, false), false);
 
     StringWriter writer = new StringWriter();
     SenseidbIndexStructureWriter senseiIndexStructureWriter = new SenseidbIndexStructureWriter();

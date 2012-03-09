@@ -2,6 +2,7 @@ package com.sematext.searchschemer.index;
 
 import com.sematext.searchschemer.type.FieldType;
 
+
 /**
  * Attributes for a given field.
  * 
@@ -9,50 +10,22 @@ import com.sematext.searchschemer.type.FieldType;
  * 
  */
 public final class FieldAttributes {
-  private FieldType type;
+  private String name;
+  private String type;
   private Boolean indexed;
   private Boolean stored;
   private Boolean analyzed;
+  private Boolean multiValued;
 
-  /**
-   * Creates field attribute of a given type which is indexed, not stored and analyzed.
-   * 
-   * @param type
-   *          attribute type
-   */
-  public FieldAttributes(FieldType type) {
-    this(type, true, false, true);
-  }
-
-  /**
-   * Creates field attribute of a given type which is not stored and analyzed.
-   * 
-   * @param type
-   *          attribute type
-   * @param indexed
-   *          <code>true</code> if the type is indexed, <code>false</code> otherwise
-   */
-  public FieldAttributes(FieldType type, Boolean indexed) {
-    this(type, indexed, false, true);
-  }
-
-  /**
-   * Creates field attribute of a given type which is analyzed.
-   * 
-   * @param type
-   *          attribute type
-   * @param indexed
-   *          <code>true</code> if the type is indexed, <code>false</code> otherwise
-   * @param stored
-   *          <code>true</code> if the type is stored, <code>false</code> otherwise
-   */
-  public FieldAttributes(FieldType type, Boolean indexed, Boolean stored) {
-    this(type, indexed, stored, true);
+  public FieldAttributes() {
+    this(null, FieldType.STRING, false, false, false, false);
   }
 
   /**
    * Create field attribute.
    * 
+   * @param name
+   *          field name
    * @param type
    *          attribute type
    * @param indexed
@@ -61,12 +34,38 @@ public final class FieldAttributes {
    *          <code>true</code> if the type is stored, <code>false</code> otherwise
    * @param analyzed
    *          <code>true</code> if the type is analyzed, <code>false</code> otherwise
+   * @param multiValued
+   *          <code>true</code> if the type is multi valued, <code>false</code> otherwise
    */
-  public FieldAttributes(FieldType type, Boolean indexed, Boolean stored, Boolean analyzed) {
+  public FieldAttributes(String name, String type, Boolean indexed, Boolean stored, Boolean analyzed,
+      Boolean multiValued) {
+    this.name = name;
     this.type = type;
     this.indexed = indexed;
     this.stored = stored;
     this.analyzed = analyzed;
+    this.multiValued = multiValued;
+  }
+  
+  /**
+   * Create field attribute.
+   * 
+   * @param name
+   *          field name
+   * @param type
+   *          attribute type
+   * @param indexed
+   *          <code>true</code> if the type is indexed, <code>false</code> otherwise
+   * @param stored
+   *          <code>true</code> if the type is stored, <code>false</code> otherwise
+   * @param analyzed
+   *          <code>true</code> if the type is analyzed, <code>false</code> otherwise
+   * @param multiValued
+   *          <code>true</code> if the type is multi valued, <code>false</code> otherwise
+   */
+  public FieldAttributes(String name, FieldType type, Boolean indexed, Boolean stored, Boolean analyzed,
+      Boolean multiValued) {
+    this(name, type.toString(), indexed, stored, analyzed, multiValued);
   }
 
   public Boolean getAnalyzed() {
@@ -77,11 +76,15 @@ public final class FieldAttributes {
     this.analyzed = analyzed;
   }
 
-  public FieldType getType() {
+  public String getType() {
     return type;
   }
+  
+  public FieldType getFieldType() {
+    return FieldType.valueOf(type);
+  }
 
-  public void setType(FieldType type) {
+  public void setType(String type) {
     this.type = type;
   }
 
@@ -99,5 +102,21 @@ public final class FieldAttributes {
 
   public void setStored(Boolean stored) {
     this.stored = stored;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public Boolean getMultiValued() {
+    return multiValued;
+  }
+
+  public void setMultiValued(Boolean multiValued) {
+    this.multiValued = multiValued;
   }
 }

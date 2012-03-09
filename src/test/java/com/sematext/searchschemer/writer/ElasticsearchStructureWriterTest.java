@@ -15,7 +15,7 @@ public class ElasticsearchStructureWriterTest extends TestCase {
   @Test
   public void testWriteNonDynamic() throws Exception {
     IndexStructure structure = new BasicIndexStructure();
-    structure.addField("cat", new FieldAttributes(FieldType.STRING, true, true, true), false);
+    structure.addField("cat", new FieldAttributes("cat", FieldType.STRING, true, true, true, false), false);
 
     StringWriter writer = new StringWriter();
     ElasticsearchIndexStructureWriter indexWriter = new ElasticsearchIndexStructureWriter();
@@ -30,8 +30,8 @@ public class ElasticsearchStructureWriterTest extends TestCase {
   @Test
   public void testWriteMultipleNonDynamic() throws Exception {
     IndexStructure structure = new BasicIndexStructure();
-    structure.addField("cat", new FieldAttributes(FieldType.STRING, true, true, true), false);
-    structure.addField("menu", new FieldAttributes(FieldType.STRING, false, true, true), false);
+    structure.addField("cat", new FieldAttributes("cat", FieldType.STRING, true, true, true, false), false);
+    structure.addField("menu", new FieldAttributes("menu", FieldType.STRING, false, true, true, false), false);
 
     StringWriter writer = new StringWriter();
     ElasticsearchIndexStructureWriter indexWriter = new ElasticsearchIndexStructureWriter();
@@ -46,7 +46,7 @@ public class ElasticsearchStructureWriterTest extends TestCase {
   @Test
   public void testWriteDynamic() throws Exception {
     IndexStructure structure = new BasicIndexStructure();
-    structure.addField("*_string", new FieldAttributes(FieldType.STRING, false, true, true), true);
+    structure.addField("*_string", new FieldAttributes("*_string", FieldType.STRING, false, true, true, false), true);
 
     StringWriter writer = new StringWriter();
     ElasticsearchIndexStructureWriter indexWriter = new ElasticsearchIndexStructureWriter();

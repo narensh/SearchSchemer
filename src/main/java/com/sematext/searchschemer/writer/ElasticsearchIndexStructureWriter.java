@@ -80,7 +80,7 @@ public class ElasticsearchIndexStructureWriter extends AbstractIndexStructureWri
     writer.write("    {\n");
     writer.write("     \"template_" + name.replaceAll("\\*", "") + "\" : {\n");
     writer.write("      \"match\" : \"" + name + "\",\n");
-    writer.write("      \"match_mapping_type\" : \"" + Mapper.getTypeName(ConfigurationType.ELASTICSEARCH, attr.getType()) + "\",\n");
+    writer.write("      \"match_mapping_type\" : \"" + Mapper.getTypeName(ConfigurationType.ELASTICSEARCH, attr.getFieldType()) + "\",\n");
     writer.write("  ");
     writeField("mapping", attr, writer);
     writer.write("\n");
@@ -104,7 +104,7 @@ public class ElasticsearchIndexStructureWriter extends AbstractIndexStructureWri
     writer.write("    \"");
     writer.write(name);
     writer.write("\" : { \"type\" : \"");
-    writer.write(Mapper.getTypeName(ConfigurationType.ELASTICSEARCH, attr.getType()));
+    writer.write(Mapper.getTypeName(ConfigurationType.ELASTICSEARCH, attr.getFieldType()));
     writer.write("\", \"store\" : \"");
     writer.write(attr.getStored() ? "yes" : "no");
     writer.write("\", \"index\" : \"");

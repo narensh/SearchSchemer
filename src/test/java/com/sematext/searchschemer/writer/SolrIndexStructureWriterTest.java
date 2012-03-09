@@ -15,7 +15,7 @@ public class SolrIndexStructureWriterTest extends TestCase {
   @Test
   public void testWriteNonDynamic() throws Exception {
     IndexStructure structure = new BasicIndexStructure();
-    structure.addField("cat", new FieldAttributes(FieldType.STRING, true, true), false);
+    structure.addField("cat", new FieldAttributes("cat", FieldType.STRING, true, true, false, false), false);
 
     StringWriter writer = new StringWriter();
     SolrIndexStructureWriter solrIndexStructurWriter = new SolrIndexStructureWriter();
@@ -28,7 +28,7 @@ public class SolrIndexStructureWriterTest extends TestCase {
   @Test
   public void testWriteDynamic() throws Exception {
     IndexStructure structure = new BasicIndexStructure();
-    structure.addField("*_int", new FieldAttributes(FieldType.STRING, false, true), true);
+    structure.addField("*_int", new FieldAttributes("*_int", FieldType.STRING, false, true, false, false), true);
 
     StringWriter writer = new StringWriter();
     SolrIndexStructureWriter solrIndexStructurWriter = new SolrIndexStructureWriter();
@@ -42,8 +42,8 @@ public class SolrIndexStructureWriterTest extends TestCase {
   @Test
   public void testWriteMultiple() throws Exception {
     IndexStructure structure = new BasicIndexStructure();
-    structure.addField("cat", new FieldAttributes(FieldType.STRING, true, true), false);
-    structure.addField("menu", new FieldAttributes(FieldType.STRING, false, true), false);
+    structure.addField("cat", new FieldAttributes("cat", FieldType.STRING, true, true, false, false), false);
+    structure.addField("menu", new FieldAttributes("menu", FieldType.STRING, false, true, false, false), false);
 
     StringWriter writer = new StringWriter();
     SolrIndexStructureWriter solrIndexStructurWriter = new SolrIndexStructureWriter();
@@ -51,6 +51,20 @@ public class SolrIndexStructureWriterTest extends TestCase {
 
     assertEquals(
         "<field name=\"cat\" type=\"string\" indexed=\"true\" stored=\"true\" />\n<field name=\"menu\" type=\"string\" indexed=\"false\" stored=\"true\" />\n",
+        writer.toString());
+    writer.close();
+  }
+
+  @Test
+  public void testWriteMultivalued() throws Exception {
+    IndexStructure structure = new BasicIndexStructure();
+    structure.addField("cat", new FieldAttributes("cat", FieldType.STRING, true, true, false, true), false);
+
+    StringWriter writer = new StringWriter();
+    SolrIndexStructureWriter solrIndexStructurWriter = new SolrIndexStructureWriter();
+    solrIndexStructurWriter.write(structure, writer);
+
+    assertEquals("<field name=\"cat\" type=\"string\" indexed=\"true\" stored=\"true\" multiValued=\"true\" />\n",
         writer.toString());
     writer.close();
   }
