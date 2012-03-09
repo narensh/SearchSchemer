@@ -18,7 +18,7 @@ public final class FieldAttributes {
   private Boolean multiValued;
 
   public FieldAttributes() {
-    this(null, FieldType.STRING, false, false, false, false);
+    this(null, FieldType.STRING, false, false, true, false);
   }
 
   /**
