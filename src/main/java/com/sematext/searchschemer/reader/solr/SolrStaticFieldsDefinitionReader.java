@@ -11,17 +11,17 @@ import com.sematext.searchschemer.index.FieldAttributes;
 import com.sematext.searchschemer.index.SolrFieldAttributes;
 
 /**
- * Reader for fields defined in Solr schema.xml file.
+ * Reader for static fields defined in Solr schema.xml file.
  * 
  * @author Sematext
  * 
  */
-public class SolrFieldsDefinitionReader {
+public class SolrStaticFieldsDefinitionReader {
   /** Digester parser instance. */
-  private Digester digester;
+  protected Digester digester;
 
   /** File to parse. */
-  private File file;
+  protected File file;
 
   /**
    * Constructor.
@@ -29,7 +29,7 @@ public class SolrFieldsDefinitionReader {
    * @param file
    *          file to parse
    */
-  public SolrFieldsDefinitionReader(File file) {
+  public SolrStaticFieldsDefinitionReader(File file) {
     this.file = file;
     initializeDigester();
   }

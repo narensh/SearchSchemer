@@ -48,6 +48,7 @@ public abstract class FieldAttributes {
    * Return field type as {@link FieldType} object instance.
    * 
    * @return field type
+   * TODO: change to use mapper
    */
   public FieldType getFieldType() {
     try {

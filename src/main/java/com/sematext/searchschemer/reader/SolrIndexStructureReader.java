@@ -9,7 +9,8 @@ import org.xml.sax.SAXException;
 import com.sematext.searchschemer.index.BasicIndexStructure;
 import com.sematext.searchschemer.index.FieldAttributes;
 import com.sematext.searchschemer.index.IndexStructure;
-import com.sematext.searchschemer.reader.solr.SolrFieldsDefinitionReader;
+import com.sematext.searchschemer.reader.solr.SolrDynamicFieldsDefinitionReader;
+import com.sematext.searchschemer.reader.solr.SolrStaticFieldsDefinitionReader;
 
 /**
  * Implementation of {@link IndexStructureReader} for Apache Solr.
@@ -26,12 +27,17 @@ public class SolrIndexStructureReader implements IndexStructureReader {
    */
   @Override
   public IndexStructure read(String file) throws IOException {
-    SolrFieldsDefinitionReader reader = new SolrFieldsDefinitionReader(new File(file));
+    SolrStaticFieldsDefinitionReader reader = new SolrStaticFieldsDefinitionReader(new File(file));
+    SolrDynamicFieldsDefinitionReader readerDynamic = new SolrDynamicFieldsDefinitionReader(new File(file));
     try {
       List<FieldAttributes> fields = reader.readFields();
+      List<FieldAttributes> dynamicFields = readerDynamic.readFields();
       IndexStructure structure = new BasicIndexStructure();
       for (FieldAttributes field : fields) {
         structure.addField(field.getName(), field);
+      }
+      for (FieldAttributes field : dynamicFields) {
+        structure.addField(field.getName(), field, true);
       }
       return structure;
     } catch (SAXException ex) {
