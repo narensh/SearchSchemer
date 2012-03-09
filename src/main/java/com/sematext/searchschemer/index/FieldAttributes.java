@@ -2,23 +2,24 @@ package com.sematext.searchschemer.index;
 
 import com.sematext.searchschemer.type.FieldType;
 
-
 /**
  * Attributes for a given field.
  * 
  * @author Sematext
  * 
  */
-public final class FieldAttributes {
-  private String name;
-  private String type;
-  private Boolean indexed;
-  private Boolean stored;
-  private Boolean analyzed;
-  private Boolean multiValued;
+public abstract class FieldAttributes {
+  protected String name;
+  protected String type;
+  protected Boolean stored;
+  protected Boolean multiValued;
+  protected Boolean indexed;
 
+  /**
+   * Default constructor.
+   */
   public FieldAttributes() {
-    this(null, FieldType.STRING, false, false, true, false);
+    this(null, FieldType.STRING, true, true, false);
   }
 
   /**
@@ -32,68 +33,36 @@ public final class FieldAttributes {
    *          <code>true</code> if the type is indexed, <code>false</code> otherwise
    * @param stored
    *          <code>true</code> if the type is stored, <code>false</code> otherwise
-   * @param analyzed
-   *          <code>true</code> if the type is analyzed, <code>false</code> otherwise
    * @param multiValued
    *          <code>true</code> if the type is multi valued, <code>false</code> otherwise
    */
-  public FieldAttributes(String name, String type, Boolean indexed, Boolean stored, Boolean analyzed,
-      Boolean multiValued) {
+  public FieldAttributes(String name, FieldType type, Boolean indexed, Boolean stored, Boolean multiValued) {
     this.name = name;
-    this.type = type;
+    this.type = type.toString();
     this.indexed = indexed;
     this.stored = stored;
-    this.analyzed = analyzed;
     this.multiValued = multiValued;
   }
-  
+
   /**
-   * Create field attribute.
+   * Return field type as {@link FieldType} object instance.
    * 
-   * @param name
-   *          field name
-   * @param type
-   *          attribute type
-   * @param indexed
-   *          <code>true</code> if the type is indexed, <code>false</code> otherwise
-   * @param stored
-   *          <code>true</code> if the type is stored, <code>false</code> otherwise
-   * @param analyzed
-   *          <code>true</code> if the type is analyzed, <code>false</code> otherwise
-   * @param multiValued
-   *          <code>true</code> if the type is multi valued, <code>false</code> otherwise
+   * @return field type
    */
-  public FieldAttributes(String name, FieldType type, Boolean indexed, Boolean stored, Boolean analyzed,
-      Boolean multiValued) {
-    this(name, type.toString(), indexed, stored, analyzed, multiValued);
-  }
-
-  public Boolean getAnalyzed() {
-    return analyzed;
-  }
-
-  public void setAnalyzed(Boolean analyzed) {
-    this.analyzed = analyzed;
+  public FieldType getFieldType() {
+    FieldType type = FieldType.valueOf(this.type);
+    if (type == null) {
+      return FieldType.STRING;
+    }
+    return type;
   }
 
   public String getType() {
     return type;
   }
-  
-  public FieldType getFieldType() {
-    return FieldType.valueOf(type);
-  }
 
   public void setType(String type) {
     this.type = type;
-  }
-
-  public Boolean getIndexed() {
-    return indexed;
-  }
-
-  public void setIndexed(Boolean indexed) {
-    this.indexed = indexed;
   }
 
   public Boolean getStored() {
@@ -119,4 +88,19 @@ public final class FieldAttributes {
   public void setMultiValued(Boolean multiValued) {
     this.multiValued = multiValued;
   }
+  
+  public Boolean getIndexed() {
+    return indexed;
+  }
+
+  public void setIndexed(Boolean indexed) {
+    this.indexed = indexed;
+  }
+
+  /**
+   * Is field analyzed.
+   * 
+   * @return <code>true</code> if field is analyzed, <code>false</code> otherwise.
+   */
+  public abstract Boolean isAnalyzed();
 }

@@ -8,6 +8,7 @@ import org.apache.commons.digester3.Digester;
 import org.xml.sax.SAXException;
 
 import com.sematext.searchschemer.index.FieldAttributes;
+import com.sematext.searchschemer.index.SolrFieldAttributes;
 
 /**
  * Reader for fields defined in Solr schema.xml file.
@@ -53,11 +54,8 @@ public class SolrFieldsDefinitionReader {
     digester = new Digester();
     digester.setNamespaceAware(true);
     digester.addObjectCreate("schema/fields", ArrayList.class);
-    digester.addObjectCreate("schema/fields/field", FieldAttributes.class);
-    digester.addSetProperties("schema/fields/field", "name", "name");
-    digester.addSetProperties("schema/fields/field", "type", "type");
-    digester.addSetProperties("schema/fields/field", "indexed", "indexed");
-    digester.addSetProperties("schema/fields/field", "stored", "stored");
+    digester.addObjectCreate("schema/fields/field", SolrFieldAttributes.class);
+    digester.addSetProperties("schema/fields/field/");
     digester.addSetNext("schema/fields/field", "add");
   }
 }

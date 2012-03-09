@@ -7,15 +7,15 @@ import junit.framework.TestCase;
 import org.junit.Test;
 
 import com.sematext.searchschemer.index.BasicIndexStructure;
-import com.sematext.searchschemer.index.FieldAttributes;
 import com.sematext.searchschemer.index.IndexStructure;
+import com.sematext.searchschemer.index.SolrFieldAttributes;
 import com.sematext.searchschemer.type.FieldType;
 
 public class SolrIndexStructureWriterTest extends TestCase {
   @Test
   public void testWriteNonDynamic() throws Exception {
     IndexStructure structure = new BasicIndexStructure();
-    structure.addField("cat", new FieldAttributes("cat", FieldType.STRING, true, true, false, false), false);
+    structure.addField("cat", new SolrFieldAttributes("cat", FieldType.STRING, true, true, false), false);
 
     StringWriter writer = new StringWriter();
     SolrIndexStructureWriter solrIndexStructurWriter = new SolrIndexStructureWriter();
@@ -28,7 +28,7 @@ public class SolrIndexStructureWriterTest extends TestCase {
   @Test
   public void testWriteDynamic() throws Exception {
     IndexStructure structure = new BasicIndexStructure();
-    structure.addField("*_int", new FieldAttributes("*_int", FieldType.STRING, false, true, false, false), true);
+    structure.addField("*_int", new SolrFieldAttributes("*_int", FieldType.STRING, false, true, false), true);
 
     StringWriter writer = new StringWriter();
     SolrIndexStructureWriter solrIndexStructurWriter = new SolrIndexStructureWriter();
@@ -42,8 +42,8 @@ public class SolrIndexStructureWriterTest extends TestCase {
   @Test
   public void testWriteMultiple() throws Exception {
     IndexStructure structure = new BasicIndexStructure();
-    structure.addField("cat", new FieldAttributes("cat", FieldType.STRING, true, true, false, false), false);
-    structure.addField("menu", new FieldAttributes("menu", FieldType.STRING, false, true, false, false), false);
+    structure.addField("cat", new SolrFieldAttributes("cat", FieldType.STRING, true, true, false), false);
+    structure.addField("menu", new SolrFieldAttributes("menu", FieldType.STRING, false, true, false), false);
 
     StringWriter writer = new StringWriter();
     SolrIndexStructureWriter solrIndexStructurWriter = new SolrIndexStructureWriter();
@@ -58,7 +58,7 @@ public class SolrIndexStructureWriterTest extends TestCase {
   @Test
   public void testWriteMultivalued() throws Exception {
     IndexStructure structure = new BasicIndexStructure();
-    structure.addField("cat", new FieldAttributes("cat", FieldType.STRING, true, true, false, true), false);
+    structure.addField("cat", new SolrFieldAttributes("cat", FieldType.STRING, true, true, true), false);
 
     StringWriter writer = new StringWriter();
     SolrIndexStructureWriter solrIndexStructurWriter = new SolrIndexStructureWriter();

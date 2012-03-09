@@ -109,7 +109,7 @@ public class ElasticsearchIndexStructureWriter extends AbstractIndexStructureWri
     writer.write(attr.getStored() ? "yes" : "no");
     writer.write("\", \"index\" : \"");
     if (attr.getIndexed()) {
-      writer.write(attr.getAnalyzed() ? "analyzed" : "not_analyzed");
+      writer.write(attr.isAnalyzed() ? "analyzed" : "not_analyzed");
     } else {
       writer.write("no");
     }
