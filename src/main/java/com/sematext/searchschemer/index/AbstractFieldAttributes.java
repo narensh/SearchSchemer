@@ -7,6 +7,7 @@ import com.sematext.searchschemer.type.FieldType;
 import com.sematext.searchschemer.type.Mapper;
 
 /**
+ * Base class for field attributes.
  * 
  * @author Sematext
  * 
