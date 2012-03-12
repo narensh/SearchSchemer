@@ -1,0 +1,18 @@
+{
+    "mappings" : {
+        "text" : {
+            "_analyzer" : { "path" : "lang" },
+            "_source" : { "enabled" : true },
+            "_routing" : { "required" : true },
+            "properties" : {                
+                "id" : { "type" : "long", "store" : "yes", "precision_step" : "0" },
+                "url" : { "type" : "string", "store" : "no", "index" : "no" },
+                "type" : { "type" : "string", "store" : "no", "index" : "not_analyzed" },
+                "total" : { "type" : "long", "store" : "no", "precision_step" : "0" },
+                "title" : { "type" : "string", "store" : "no", "index" : "analyzed" },
+                "body" : { "type" : "string", "store" : "no", "index" : "analyzed" },
+                "lang" : { "type" : "string", "store" : "no", "index" : "not_analyzed" }
+            }
+        }
+    }
+}
