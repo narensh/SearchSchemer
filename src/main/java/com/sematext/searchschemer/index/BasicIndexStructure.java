@@ -16,6 +16,9 @@ public class BasicIndexStructure implements IndexStructure {
   /** Dynamic fields. */
   private Map<String, FieldAttributes> dynamicFields;
   
+  /**
+   * Constructor.
+   */
   public BasicIndexStructure() {
     fields = new LinkedHashMap<String, FieldAttributes>();
     dynamicFields = new LinkedHashMap<String, FieldAttributes>();

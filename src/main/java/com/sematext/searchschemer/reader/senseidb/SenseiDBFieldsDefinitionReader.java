@@ -8,7 +8,7 @@ import org.apache.commons.digester3.Digester;
 import org.xml.sax.SAXException;
 
 import com.sematext.searchschemer.index.FieldAttributes;
-import com.sematext.searchschemer.index.SenseiDBFieldAttributes;
+import com.sematext.searchschemer.index.sensidb.SenseiDBFieldAttributes;
 
 /** 
  * SenseiDB structure file reader. 

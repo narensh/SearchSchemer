@@ -7,8 +7,8 @@ import junit.framework.TestCase;
 import org.junit.Test;
 
 import com.sematext.searchschemer.index.BasicIndexStructure;
-import com.sematext.searchschemer.index.ElasticSearchFieldAttributes;
 import com.sematext.searchschemer.index.IndexStructure;
+import com.sematext.searchschemer.index.elasticsearch.ElasticSearchFieldAttributes;
 
 public class ElasticsearchStructureWriterTest extends TestCase {
   @Test

@@ -1,8 +1,7 @@
-package com.sematext.searchschemer.index;
+package com.sematext.searchschemer.index.elasticsearch;
 
 import com.sematext.searchschemer.client.ConfigurationType;
-import com.sematext.searchschemer.index.elasticsearch.Analyzed;
-import com.sematext.searchschemer.index.elasticsearch.Stored;
+import com.sematext.searchschemer.index.AbstractFieldAttributes;
 
 /**
  * Fields from ElasticSearch mappings.
@@ -10,7 +9,7 @@ import com.sematext.searchschemer.index.elasticsearch.Stored;
  * @author Sematext
  * 
  */
-public class ElasticSearchFieldAttributes extends AbstractFieldAttributes {
+public final class ElasticSearchFieldAttributes extends AbstractFieldAttributes {
   private String analyzed;
   private String stored;
 

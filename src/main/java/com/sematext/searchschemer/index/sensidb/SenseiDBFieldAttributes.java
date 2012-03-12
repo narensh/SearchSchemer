@@ -1,8 +1,7 @@
-package com.sematext.searchschemer.index;
+package com.sematext.searchschemer.index.sensidb;
 
 import com.sematext.searchschemer.client.ConfigurationType;
-import com.sematext.searchschemer.index.sensidb.Analyzed;
-import com.sematext.searchschemer.index.sensidb.Stored;
+import com.sematext.searchschemer.index.AbstractFieldAttributes;
 
 /**
  * Fields from SenseiDB table configuration.
@@ -10,7 +9,7 @@ import com.sematext.searchschemer.index.sensidb.Stored;
  * @author Sematext
  * 
  */
-public class SenseiDBFieldAttributes extends AbstractFieldAttributes {
+public final class SenseiDBFieldAttributes extends AbstractFieldAttributes {
   private String index;
   private String store;
 

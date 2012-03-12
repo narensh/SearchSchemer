@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import com.sematext.searchschemer.index.BasicIndexStructure;
 import com.sematext.searchschemer.index.IndexStructure;
-import com.sematext.searchschemer.index.SenseiDBFieldAttributes;
+import com.sematext.searchschemer.index.sensidb.SenseiDBFieldAttributes;
 
 public class SenseidbIndexStructureWriterTest extends TestCase {
   @Test

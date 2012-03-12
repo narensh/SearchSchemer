@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import com.sematext.searchschemer.index.BasicIndexStructure;
 import com.sematext.searchschemer.index.IndexStructure;
-import com.sematext.searchschemer.index.SolrFieldAttributes;
+import com.sematext.searchschemer.index.solr.SolrFieldAttributes;
 
 public class SolrIndexStructureWriterTest extends TestCase {
   @Test

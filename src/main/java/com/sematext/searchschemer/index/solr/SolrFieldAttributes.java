@@ -1,6 +1,7 @@
-package com.sematext.searchschemer.index;
+package com.sematext.searchschemer.index.solr;
 
 import com.sematext.searchschemer.client.ConfigurationType;
+import com.sematext.searchschemer.index.AbstractFieldAttributes;
 import com.sematext.searchschemer.type.FieldType;
 
 /**

@@ -8,7 +8,7 @@ import org.apache.commons.digester3.Digester;
 import org.xml.sax.SAXException;
 
 import com.sematext.searchschemer.index.FieldAttributes;
-import com.sematext.searchschemer.index.SolrFieldAttributes;
+import com.sematext.searchschemer.index.solr.SolrFieldAttributes;
 
 /**
  * Reader for static fields defined in Solr schema.xml file.

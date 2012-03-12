@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import org.apache.commons.digester3.Digester;
 
-import com.sematext.searchschemer.index.SolrFieldAttributes;
+import com.sematext.searchschemer.index.solr.SolrFieldAttributes;
 
 /**
  * Reader for static fields defined in Solr schema.xml file.
