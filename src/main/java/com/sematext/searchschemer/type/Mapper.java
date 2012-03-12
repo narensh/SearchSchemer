@@ -70,7 +70,7 @@ public class Mapper {
    *          configuration type
    * @return mappings
    */
-  private static Map<FieldType, String> getMappings(ConfigurationType configurationType) {
+  public static Map<FieldType, String> getMappings(ConfigurationType configurationType) {
     switch (configurationType) {
       case SOLR:
         return Mapper.SOLR;

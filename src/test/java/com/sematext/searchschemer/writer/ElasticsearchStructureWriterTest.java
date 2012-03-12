@@ -9,13 +9,12 @@ import org.junit.Test;
 import com.sematext.searchschemer.index.BasicIndexStructure;
 import com.sematext.searchschemer.index.ElasticSearchFieldAttributes;
 import com.sematext.searchschemer.index.IndexStructure;
-import com.sematext.searchschemer.type.FieldType;
 
 public class ElasticsearchStructureWriterTest extends TestCase {
   @Test
   public void testWriteNonDynamic() throws Exception {
     IndexStructure structure = new BasicIndexStructure();
-    structure.addField("cat", new ElasticSearchFieldAttributes("cat", FieldType.STRING, true, true, true), false);
+    structure.addField("cat", new ElasticSearchFieldAttributes("cat", "string", "yes", "analyzed"), false);
 
     StringWriter writer = new StringWriter();
     ElasticsearchIndexStructureWriter indexWriter = new ElasticsearchIndexStructureWriter();
@@ -30,8 +29,8 @@ public class ElasticsearchStructureWriterTest extends TestCase {
   @Test
   public void testWriteMultipleNonDynamic() throws Exception {
     IndexStructure structure = new BasicIndexStructure();
-    structure.addField("cat", new ElasticSearchFieldAttributes("cat", FieldType.STRING, true, true, true), false);
-    structure.addField("menu", new ElasticSearchFieldAttributes("menu", FieldType.STRING, false, true, false), false);
+    structure.addField("cat", new ElasticSearchFieldAttributes("cat", "string", "yes", "analyzed"), false);
+    structure.addField("menu", new ElasticSearchFieldAttributes("menu", "string", "yes", "no"), false);
 
     StringWriter writer = new StringWriter();
     ElasticsearchIndexStructureWriter indexWriter = new ElasticsearchIndexStructureWriter();
@@ -46,7 +45,7 @@ public class ElasticsearchStructureWriterTest extends TestCase {
   @Test
   public void testWriteDynamic() throws Exception {
     IndexStructure structure = new BasicIndexStructure();
-    structure.addField("*_string", new ElasticSearchFieldAttributes("*_string", FieldType.STRING, false, true, false), true);
+    structure.addField("*_string", new ElasticSearchFieldAttributes("*_string", "string", "yes", "no"), true);
 
     StringWriter writer = new StringWriter();
     ElasticsearchIndexStructureWriter indexWriter = new ElasticsearchIndexStructureWriter();

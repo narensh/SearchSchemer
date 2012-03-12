@@ -1,21 +1,26 @@
 package com.sematext.searchschemer.index;
 
+import com.sematext.searchschemer.client.ConfigurationType;
 import com.sematext.searchschemer.type.FieldType;
 
-/** 
+/**
  * Field attributes for Solr.
  * 
  * @author Sematext
- *
+ * 
  */
-public class SolrFieldAttributes extends FieldAttributes { 
-  /** 
+public final class SolrFieldAttributes extends AbstractFieldAttributes {
+  private Boolean indexed = false;
+  private Boolean stored = false;
+  private Boolean multiValued = false;
+
+  /**
    * Default constructor.
    */
   public SolrFieldAttributes() {
     super();
   }
-  
+
   /**
    * Create field attribute.
    * 
@@ -30,19 +35,67 @@ public class SolrFieldAttributes extends FieldAttributes {
    * @param multiValued
    *          <code>true</code> if the type is multi valued, <code>false</code> otherwise
    */
-  public SolrFieldAttributes(String name, FieldType type, Boolean indexed, Boolean stored, Boolean multiValued) {
-    super(name, type, indexed, stored, multiValued);
+  public SolrFieldAttributes(String name, String type, Boolean indexed, Boolean stored, Boolean multiValued) {
+    this();
+    this.type = type;
+    this.name = name;
+    this.indexed = indexed;
+    this.stored = stored;
+    this.multiValued = multiValued;
   }
-  
-  /** 
+
+  /**
    * {@inheritDoc}
    */
   @Override
   public Boolean isAnalyzed() {
-    if (getFieldType() != FieldType.STRING) {
+    if (indexed && getFieldType() != FieldType.STRING) {
       return true;
-    } else {
-      return false;
     }
+    return false;
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Boolean isStored() {
+    return stored;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Boolean isMultiValued() {
+    return multiValued;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Boolean isIndexed() {
+    return indexed;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public ConfigurationType getConfigurationType() {
+    return ConfigurationType.SOLR;
+  }
+
+  public void setIndexed(Boolean indexed) {
+    this.indexed = indexed;
+  }
+
+  public void setStored(Boolean stored) {
+    this.stored = stored;
+  }
+
+  public void setMultiValued(Boolean multiValued) {
+    this.multiValued = multiValued;
   }
 }

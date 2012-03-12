@@ -1,3 +1,10 @@
+Version: 0.0.3
+Date: 2012-03-12
+Changes:
+ * First working version
+ * Ability to read SenseiDB schema.xml 
+
+------
 Version: 0.0.2 
 Date: 2012-03-09
 Changes:

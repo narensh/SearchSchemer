@@ -57,11 +57,11 @@ public class SolrIndexStructureWriter extends AbstractIndexStructureWriter {
     writer.write("\" type=\"");
     writer.write(Mapper.getTypeName(ConfigurationType.SOLR, attr.getFieldType()));
     writer.write("\" indexed=\"");
-    writer.write(attr.getIndexed().toString().toLowerCase());
+    writer.write(attr.isIndexed().toString().toLowerCase());
     writer.write("\" stored=\"");
-    writer.write(attr.getStored().toString().toLowerCase());
+    writer.write(attr.isStored().toString().toLowerCase());
     writer.write("\"");
-    if (attr.getMultiValued()) {
+    if (attr.isMultiValued()) {
       writer.write(" multiValued=\"true\"");
     }
     writer.write(" />\n");

@@ -8,96 +8,41 @@ import com.sematext.searchschemer.type.FieldType;
  * @author Sematext
  * 
  */
-public abstract class FieldAttributes {
-  protected String name;
-  protected String type;
-  protected Boolean stored;
-  protected Boolean multiValued;
-  protected Boolean indexed;
-
+public interface FieldAttributes {
   /**
-   * Default constructor.
-   */
-  public FieldAttributes() {
-    this(null, FieldType.STRING, true, true, false);
-  }
-
-  /**
-   * Create field attribute.
-   * 
-   * @param name
-   *          field name
-   * @param type
-   *          attribute type
-   * @param indexed
-   *          <code>true</code> if the type is indexed, <code>false</code> otherwise
-   * @param stored
-   *          <code>true</code> if the type is stored, <code>false</code> otherwise
-   * @param multiValued
-   *          <code>true</code> if the type is multi valued, <code>false</code> otherwise
-   */
-  public FieldAttributes(String name, FieldType type, Boolean indexed, Boolean stored, Boolean multiValued) {
-    this.name = name;
-    this.type = type.toString();
-    this.indexed = indexed;
-    this.stored = stored;
-    this.multiValued = multiValued;
-  }
-
-  /**
-   * Return field type as {@link FieldType} object instance.
+   * Return field type. The default field type is FieldType.STRING.
    * 
    * @return field type
-   * TODO: change to use mapper
    */
-  public FieldType getFieldType() {
-    try {
-      FieldType type = FieldType.valueOf(this.type.toUpperCase());
-      return type;
-    } catch (Exception ex) {
-      return FieldType.STRING;
-    }
-  }
+  public FieldType getFieldType();
 
-  public String getType() {
-    return type;
-  }
+  /**
+   * Is field stored.
+   * 
+   * @return <code>true</code> if field is stored, <code>false</code> otherwise.
+   */
+  public Boolean isStored();
 
-  public void setType(String type) {
-    this.type = type;
-  }
+  /**
+   * Return field name.
+   * 
+   * @return field name
+   */
+  public String getName();
 
-  public Boolean getStored() {
-    return stored;
-  }
+  /**
+   * Can field have multiple values.
+   * 
+   * @return <code>true</code> if field is multi valued, <code>false</code> otherwise.
+   */
+  public Boolean isMultiValued();
 
-  public void setStored(Boolean stored) {
-    this.stored = stored;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public Boolean getMultiValued() {
-    return multiValued;
-  }
-
-  public void setMultiValued(Boolean multiValued) {
-    this.multiValued = multiValued;
-  }
-  
-  public Boolean getIndexed() {
-    return indexed;
-  }
-
-  public void setIndexed(Boolean indexed) {
-    this.indexed = indexed;
-  }
+  /**
+   * Is field indexed.
+   * 
+   * @return <code>true</code> if field is indexed, <code>false</code> otherwise.
+   */
+  public Boolean isIndexed();
 
   /**
    * Is field analyzed.

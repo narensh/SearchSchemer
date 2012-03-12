@@ -1,6 +1,8 @@
 package com.sematext.searchschemer.index;
 
-import com.sematext.searchschemer.type.FieldType;
+import com.sematext.searchschemer.client.ConfigurationType;
+import com.sematext.searchschemer.index.elasticsearch.Analyzed;
+import com.sematext.searchschemer.index.elasticsearch.Stored;
 
 /**
  * Fields from ElasticSearch mappings.
@@ -8,8 +10,16 @@ import com.sematext.searchschemer.type.FieldType;
  * @author Sematext
  * 
  */
-public class ElasticSearchFieldAttributes extends FieldAttributes {
-  private boolean analyzed;
+public class ElasticSearchFieldAttributes extends AbstractFieldAttributes {
+  private String analyzed;
+  private String stored;
+
+  /**
+   * Constructor.
+   */
+  public ElasticSearchFieldAttributes() {
+    super();
+  }
 
   /**
    * Create field attribute.
@@ -18,15 +28,16 @@ public class ElasticSearchFieldAttributes extends FieldAttributes {
    *          field name
    * @param type
    *          attribute type
-   * @param indexed
-   *          <code>true</code> if the type is indexed, <code>false</code> otherwise
    * @param stored
-   *          <code>true</code> if the type is stored, <code>false</code> otherwise
-   * @param analysed
-   *          <code>true</code> if the type is analyzed, <code>false</code> otherwise
+   *          is field stored (value 'no' or 'yes')
+   * @param analyzed
+   *          is field analyzed (value 'no', 'analyzed' or 'not_analyzed')
    */
-  public ElasticSearchFieldAttributes(String name, FieldType type, Boolean indexed, Boolean stored, Boolean analyzed) {
-    super(name, type, indexed, stored, true);
+  public ElasticSearchFieldAttributes(String name, String type, String stored, String analyzed) {
+    this();
+    this.name = name;
+    this.type = type;
+    this.stored = stored;
     this.analyzed = analyzed;
   }
 
@@ -35,6 +46,50 @@ public class ElasticSearchFieldAttributes extends FieldAttributes {
    */
   @Override
   public Boolean isAnalyzed() {
-    return analyzed;
+    if (Analyzed.ANALYZED.toString().compareTo(analyzed.toUpperCase()) == 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Boolean isStored() {
+    if (Stored.YES.toString().compareTo(stored.toUpperCase()) == 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Boolean isIndexed() {
+    if (Analyzed.NO.toString().compareTo(analyzed.toUpperCase()) == 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Boolean isMultiValued() {
+    return true; // this is always true in case of ElasticSearch as in Lucene
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public ConfigurationType getConfigurationType() {
+    return ConfigurationType.ELASTICSEARCH;
   }
 }

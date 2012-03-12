@@ -106,9 +106,9 @@ public class ElasticsearchIndexStructureWriter extends AbstractIndexStructureWri
     writer.write("\" : { \"type\" : \"");
     writer.write(Mapper.getTypeName(ConfigurationType.ELASTICSEARCH, attr.getFieldType()));
     writer.write("\", \"store\" : \"");
-    writer.write(attr.getStored() ? "yes" : "no");
+    writer.write(attr.isStored() ? "yes" : "no");
     writer.write("\", \"index\" : \"");
-    if (attr.getIndexed()) {
+    if (attr.isIndexed()) {
       writer.write(attr.isAnalyzed() ? "analyzed" : "not_analyzed");
     } else {
       writer.write("no");
