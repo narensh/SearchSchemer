@@ -1,0 +1,14 @@
+{
+    "text" : {
+        "_source" : { "enabled" : true },
+        "properties" : {                
+            "test" : { 
+                "type" : "multi_field",
+                "fields" : {
+                    "test" : { "type" : "string", "store" : "yes", "index" : "analyzed" },
+                    "facet" : { "type" : "string", "store" : "yes", "index" : "not_analyzed" }   
+                } 
+            }
+        }
+    }
+}

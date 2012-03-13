@@ -97,22 +97,70 @@ public class ElasticSearchFieldsDefinitionReader {
   private void readFieldMappings() throws IOException {
     JsonToken token = reader.peek();
     while (JsonToken.NAME == token) {
-      ElasticSearchFieldAttributes field = new ElasticSearchFieldAttributes();
       String name = reader.nextName();
-      field.setName(name);
       reader.beginObject();
-      JsonToken innerToken = reader.peek();
-      while (innerToken != JsonToken.BEGIN_OBJECT && innerToken != JsonToken.END_OBJECT) {
-        if (JsonToken.NAME == reader.peek()) {
-          String propertyName = reader.nextName();
-          String value = reader.nextString();
-          setPropert(propertyName, value, field);
-        }
-        innerToken = reader.peek();
+      String propertyName = reader.nextName();
+      String value = reader.nextString();
+      if ("multi_field".compareTo(value) == 0) {
+        handleMultiField(name);
+      } else {
+        ElasticSearchFieldAttributes field = new ElasticSearchFieldAttributes();
+        field.setName(name);
+        setProperty(propertyName, value, field);
+        handleFieldAttributes(field);
+        fields.add(field);
       }
-      fields.add(field);
       reader.endObject();
       token = reader.peek();
+    }
+  }
+
+  /**
+   * Handle multifield entry.
+   * 
+   * @param name
+   *          field name
+   * @param propertyName
+   *          property name
+   * @throws IOException
+   *           thrown when I/O error occurs
+   */
+  protected void handleMultiField(String name) throws IOException {
+    reader.nextName();
+    reader.beginObject();
+    while (JsonToken.END_OBJECT != reader.peek()) {
+      ElasticSearchFieldAttributes field = new ElasticSearchFieldAttributes();
+      String innerName = reader.nextName();
+      if (innerName.compareTo(name) == 0) {
+        field.setName(name);
+      } else {
+        field.setName(name + "." + innerName);
+      }
+      reader.beginObject();
+      handleFieldAttributes(field);
+      fields.add(field);
+      reader.endObject();
+    }
+    reader.endObject();
+  }
+
+  /**
+   * Handle field attributes reading.
+   * 
+   * @param field
+   *          field
+   * @throws IOException
+   *           thrown when I/O error occurs
+   */
+  protected void handleFieldAttributes(ElasticSearchFieldAttributes field) throws IOException {
+    JsonToken innerToken = reader.peek();
+    while (innerToken != JsonToken.END_OBJECT) {
+      if (JsonToken.NAME == reader.peek()) {
+        String propertyName = reader.nextName();
+        String value = reader.nextString();
+        setProperty(propertyName, value, field);
+      }
+      innerToken = reader.peek();
     }
   }
 
@@ -126,7 +174,7 @@ public class ElasticSearchFieldsDefinitionReader {
    * @param field
    *          field
    */
-  private void setPropert(String propertyName, String value, ElasticSearchFieldAttributes field) {
+  private void setProperty(String propertyName, String value, ElasticSearchFieldAttributes field) {
     if ("type".compareTo(propertyName) == 0) {
       field.setType(value);
     } else if ("store".compareTo(propertyName) == 0) {

@@ -1,6 +1,7 @@
 package com.sematext.searchschemer.reader.elasticsearch;
 
 import java.io.File;
+import java.util.List;
 
 import junit.framework.TestCase;
 
@@ -36,5 +37,35 @@ public class ElasticSearchFieldsDefinitionReaderTest extends TestCase {
     assertTrue(field.isMultiValued());
     assertTrue(field.isIndexed());
     assertFalse(field.isStored());
+  }
+  
+  @Test
+  public void testReaderMultiField() throws Exception {
+    ElasticSearchFieldsDefinitionReader reader = new ElasticSearchFieldsDefinitionReader(new File(getClass().getClassLoader()
+        .getResource("elasticsearch/elasticsearch_test_mappings_multifield.json").getFile()));
+    List<FieldAttributes> fields = reader.readFields();
+    assertEquals(2, fields.size()); 
+    FieldAttributes field1, field2;
+    if (fields.get(0).getName().compareTo("test") == 0) {
+      field1 = fields.get(0);
+      field2 = fields.get(1);
+    } else {
+      field1 = fields.get(1);
+      field2 = fields.get(0);
+    }
+    // field 1
+    assertEquals("test", field1.getName());
+    assertEquals(FieldType.TEXT, field1.getFieldType());
+    assertTrue(field1.isAnalyzed());
+    assertTrue(field1.isMultiValued());
+    assertTrue(field1.isIndexed());
+    assertTrue(field1.isStored());
+    // field 2
+    assertEquals("test.facet", field2.getName());
+    assertEquals(FieldType.TEXT, field2.getFieldType());
+    assertFalse(field2.isAnalyzed());
+    assertTrue(field2.isMultiValued());
+    assertTrue(field2.isIndexed());
+    assertTrue(field2.isStored());
   }
 }

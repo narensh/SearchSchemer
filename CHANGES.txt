@@ -1,3 +1,9 @@
+Version: 0.0.4
+Date: 2012-03-13
+Changes:
+ * Ability to read ElasticSearch mappings 
+
+------
 Version: 0.0.3
 Date: 2012-03-12
 Changes:
