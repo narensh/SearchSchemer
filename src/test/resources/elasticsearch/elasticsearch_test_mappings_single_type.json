@@ -12,4 +12,5 @@
             "body" : { "type" : "string", "store" : "no", "index" : "analyzed" },
             "lang" : { "type" : "string", "store" : "no", "index" : "not_analyzed" }
         }
+    }
 }

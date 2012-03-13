@@ -1,0 +1,8 @@
+{
+    "text" : {
+        "_source" : { "enabled" : true },
+        "properties" : {                
+            "id" : { "type" : "long", "store" : "no", "precision_step" : "0" }
+        }
+    }
+}

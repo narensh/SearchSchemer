@@ -10,8 +10,8 @@ import com.sematext.searchschemer.index.AbstractFieldAttributes;
  * 
  */
 public final class ElasticSearchFieldAttributes extends AbstractFieldAttributes {
-  private String analyzed;
-  private String stored;
+  private String analyzed = "analyzed";
+  private String stored = "no";
 
   /**
    * Constructor.
@@ -90,5 +90,13 @@ public final class ElasticSearchFieldAttributes extends AbstractFieldAttributes 
   @Override
   public ConfigurationType getConfigurationType() {
     return ConfigurationType.ELASTICSEARCH;
+  }
+  
+  public void setAnalyzed(String analyzed) {
+    this.analyzed = analyzed;
+  }
+
+  public void setStored(String stored) {
+    this.stored = stored;
   }
 }
