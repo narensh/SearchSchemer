@@ -31,7 +31,7 @@ public class ElasticSearchFieldsDefinitionReaderTest extends TestCase {
         .getResource("elasticsearch/elasticsearch_test_mappings_single_field.json").getFile()));
     assertEquals(1, reader.readFields().size());
     FieldAttributes field = reader.readFields().get(0);
-    assertEquals("text.id", field.name());
+    assertEquals("id", field.name());
     assertEquals(FieldType.LONG, field.fieldType());
     assertTrue(field.analyzed());
     assertTrue(field.multiValued());
@@ -46,7 +46,7 @@ public class ElasticSearchFieldsDefinitionReaderTest extends TestCase {
     List<FieldAttributes> fields = reader.readFields();
     assertEquals(2, fields.size()); 
     FieldAttributes field1, field2;
-    if (fields.get(0).name().compareTo("text.test") == 0) {
+    if (fields.get(0).name().compareTo("test") == 0) {
       field1 = fields.get(0);
       field2 = fields.get(1);
     } else {
@@ -54,13 +54,13 @@ public class ElasticSearchFieldsDefinitionReaderTest extends TestCase {
       field2 = fields.get(0);
     }
     // field 1
-    assertEquals("text.test", field1.name());
+    assertEquals("test", field1.name());
     assertTrue(field1.analyzed());
     assertTrue(field1.multiValued());
     assertTrue(field1.indexed());
     assertTrue(field1.store());
     // field 2
-    assertEquals("text.test.facet", field2.name());
+    assertEquals("test.facet", field2.name());
     assertFalse(field2.analyzed());
     assertTrue(field2.multiValued());
     assertTrue(field2.indexed());
@@ -73,7 +73,7 @@ public class ElasticSearchFieldsDefinitionReaderTest extends TestCase {
         .getResource("elasticsearch/elasticsearch_test_mappings_norms.json").getFile()));
     assertEquals(1, reader.readFields().size());
     FieldAttributes field = reader.readFields().get(0);
-    assertEquals("text.id", field.name());
+    assertEquals("id", field.name());
     assertTrue(field.analyzed());
     assertTrue(field.multiValued());
     assertTrue(field.indexed());

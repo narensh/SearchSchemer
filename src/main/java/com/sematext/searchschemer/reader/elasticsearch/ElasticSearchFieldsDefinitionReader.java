@@ -21,13 +21,13 @@ import com.sematext.searchschemer.type.elasticsearch.ElasticSearchMappingsNames;
  */
 public class ElasticSearchFieldsDefinitionReader {
   /** File to parse. */
-  protected File file;
+  private File file;
 
   /** Json reader. */
   private JsonReader reader;
 
   /** List of readed documents. */
-  List<FieldAttributes> fields;
+  private List<FieldAttributes> fields;
 
   /**
    * Constructor.
@@ -48,25 +48,34 @@ public class ElasticSearchFieldsDefinitionReader {
    */
   public List<FieldAttributes> readFields() throws IOException {
     initialize();
+    int numberOfMappings = 0;
+    String typeName = null;
     reader.beginObject();
     JsonToken token = reader.peek();
     if (JsonToken.BEGIN_OBJECT == token) {
+      numberOfMappings++;
       readProperties(null);
     } else if (JsonToken.NAME == token) {
       String name = reader.nextName();
       if (ElasticSearchMappingsNames.MAPPINGS.compareTo(name) == 0) {
         reader.beginObject();
         while (JsonToken.END_OBJECT != reader.peek()) {
-          String typeName = reader.nextName();
+          numberOfMappings++;
+          typeName = reader.nextName();
           readProperties(typeName);
         }
         reader.endObject();
       } else {
+        numberOfMappings++;
+        typeName = name;
         readProperties(name);
       }
 
     }
     reader.endObject();
+    if (numberOfMappings == 1) {
+      removeTypeName(typeName);
+    }
     return fields;
   }
 
@@ -199,6 +208,25 @@ public class ElasticSearchFieldsDefinitionReader {
     }
   }
 
+  /**
+   * Removes type name from fields.
+   * 
+   * @param typeName
+   *          type name
+   */
+  private void removeTypeName(String typeName) {
+    if (typeName == null) {
+      return;
+    }
+    int length = typeName.length();
+    for (FieldAttributes field : fields) {
+      if (field.name().startsWith(typeName + ".")) {
+        ElasticSearchFieldAttributes currentField = (ElasticSearchFieldAttributes) field;
+        currentField.setName(field.name().substring(length + 1));
+      }
+    }
+  }
+  
   /**
    * Sets field name.
    * 

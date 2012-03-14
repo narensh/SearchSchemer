@@ -1,3 +1,9 @@
+Version: 0.0.7
+Date: 2012-03-14
+Changes:
+ * Ignore type name when a single type is only present in ElasticSearch mappings file
+
+------
 Version: 0.0.6
 Date: 2012-03-14
 Changes:
