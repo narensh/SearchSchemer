@@ -1,0 +1,8 @@
+{
+    "text" : {
+        "_source" : { "enabled" : true },
+        "properties" : {                
+            "id" : { "type" : "string", "store" : "yes", "index" : "analyzed", "omit_term_freq_and_positions" : "true", "omit_norms" : "true", "boost" : "2.0" }
+        }
+    }
+}

@@ -50,4 +50,25 @@ public interface FieldAttributes {
    * @return <code>true</code> if field is analyzed, <code>false</code> otherwise.
    */
   public abstract Boolean isAnalyzed();
+
+  /**
+   * Returns field boost.
+   * 
+   * @return boost
+   */
+  public abstract float boost();
+
+  /**
+   * Should norms be disabled for the given field.
+   * 
+   * @return <code>true</code> if field have norms disabled, <code>false</code> otherwise.
+   */
+  public abstract Boolean omitNorms();
+
+  /**
+   * Should term frequency and positions be disabled.
+   * 
+   * @return <code>true</code> if field term frequency and positions should be disabled, <code>false</code> otherwise.
+   */
+  public abstract Boolean omitTermFrequencyAndPositions();
 }

@@ -55,17 +55,31 @@ public class ElasticSearchFieldsDefinitionReaderTest extends TestCase {
     }
     // field 1
     assertEquals("test", field1.getName());
-    assertEquals(FieldType.TEXT, field1.getFieldType());
     assertTrue(field1.isAnalyzed());
     assertTrue(field1.isMultiValued());
     assertTrue(field1.isIndexed());
     assertTrue(field1.isStored());
     // field 2
     assertEquals("test.facet", field2.getName());
-    assertEquals(FieldType.TEXT, field2.getFieldType());
     assertFalse(field2.isAnalyzed());
     assertTrue(field2.isMultiValued());
     assertTrue(field2.isIndexed());
     assertTrue(field2.isStored());
+  }
+  
+  @Test
+  public void testReaderAdditionalAttributes() throws Exception {
+    ElasticSearchFieldsDefinitionReader reader = new ElasticSearchFieldsDefinitionReader(new File(getClass().getClassLoader()
+        .getResource("elasticsearch/elasticsearch_test_mappings_norms.json").getFile()));
+    assertEquals(1, reader.readFields().size());
+    FieldAttributes field = reader.readFields().get(0);
+    assertEquals("id", field.getName());
+    assertTrue(field.isAnalyzed());
+    assertTrue(field.isMultiValued());
+    assertTrue(field.isIndexed());
+    assertTrue(field.isStored());
+    assertTrue(field.omitNorms());
+    assertTrue(field.omitTermFrequencyAndPositions());
+    assertEquals(2.0f, field.boost());
   }
 }

@@ -56,4 +56,23 @@ public class ElasticsearchStructureWriterTest extends TestCase {
         writer.toString());
     writer.close();
   }
+
+  @Test
+  public void testWriteNonDynamicWithAdditionalAttributes() throws Exception {
+    IndexStructure structure = new BasicIndexStructure();
+    ElasticSearchFieldAttributes field = new ElasticSearchFieldAttributes("cat", "string", "yes", "analyzed");
+    field.setOmitNorms(true);
+    field.setOmitTermFreqAndPos(true);
+    field.setBoost(2.0f);
+    structure.addField("cat", field, false);
+
+    StringWriter writer = new StringWriter();
+    ElasticsearchIndexStructureWriter indexWriter = new ElasticsearchIndexStructureWriter();
+    indexWriter.write(structure, writer);
+
+    assertEquals(
+        "{\n \"mappings\" : {\n  \"type\" : {\n   \"properties\" : {\n    \"cat\" : { \"type\" : \"string\", \"store\" : \"yes\", \"index\" : \"analyzed\", \"omit_norms\" : \"yes\", \"omit_term_freq_and_positions\" : \"yes\", \"boost\" : \"2.0\" }\n   }\n  }\n }\n}",
+        writer.toString());
+    writer.close();
+  }
 }

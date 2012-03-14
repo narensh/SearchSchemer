@@ -11,6 +11,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.sematext.searchschemer.index.FieldAttributes;
 import com.sematext.searchschemer.index.elasticsearch.ElasticSearchFieldAttributes;
+import com.sematext.searchschemer.type.elasticsearch.ElasticSearchMappingsNames;
 
 /**
  * ElasticSearch mappings reader.
@@ -53,7 +54,7 @@ public class ElasticSearchFieldsDefinitionReader {
       readProperties();
     } else if (JsonToken.NAME == token) {
       String name = reader.nextName();
-      if ("mappings".compareTo(name) == 0) {
+      if (ElasticSearchMappingsNames.MAPPINGS.compareTo(name) == 0) {
         reader.beginObject();
         reader.nextName();
         readProperties();
@@ -76,7 +77,7 @@ public class ElasticSearchFieldsDefinitionReader {
       JsonToken token = reader.peek();
       if (JsonToken.NAME == token) {
         String name = reader.nextName();
-        if ("properties".compareTo(name) == 0) {
+        if (ElasticSearchMappingsNames.PROPERTIES.compareTo(name) == 0) {
           reader.beginObject();
           readFieldMappings();
           reader.endObject();
@@ -101,7 +102,7 @@ public class ElasticSearchFieldsDefinitionReader {
       reader.beginObject();
       String propertyName = reader.nextName();
       String value = reader.nextString();
-      if ("multi_field".compareTo(value) == 0) {
+      if (ElasticSearchMappingsNames.MULTI_FIELD.compareTo(value) == 0) {
         handleMultiField(name);
       } else {
         ElasticSearchFieldAttributes field = new ElasticSearchFieldAttributes();
@@ -175,12 +176,18 @@ public class ElasticSearchFieldsDefinitionReader {
    *          field
    */
   private void setProperty(String propertyName, String value, ElasticSearchFieldAttributes field) {
-    if ("type".compareTo(propertyName) == 0) {
+    if (ElasticSearchMappingsNames.TYPE.compareTo(propertyName) == 0) {
       field.setType(value);
-    } else if ("store".compareTo(propertyName) == 0) {
+    } else if (ElasticSearchMappingsNames.STORE.compareTo(propertyName) == 0) {
       field.setStored(value);
-    } else if ("index".compareTo(propertyName) == 0) {
+    } else if (ElasticSearchMappingsNames.INDEX.compareTo(propertyName) == 0) {
       field.setAnalyzed(value);
+    } else if (ElasticSearchMappingsNames.OMIT_FREQ_AND_POSITIONS.compareTo(propertyName) == 0) {
+      field.setOmitTermFreqAndPos(Boolean.parseBoolean(value));
+    } else if (ElasticSearchMappingsNames.OMIT_NORMS.compareTo(propertyName) == 0) {
+      field.setOmitNorms(Boolean.parseBoolean(value));
+    } else if (ElasticSearchMappingsNames.BOOST.compareTo(propertyName) == 0) {
+      field.setBoost(Float.parseFloat(value));
     }
   }
 

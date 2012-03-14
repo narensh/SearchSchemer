@@ -18,6 +18,15 @@ public abstract class AbstractFieldAttributes implements FieldAttributes {
 
   /** Field type. */
   protected String type;
+  
+  /** Field boost. */
+  protected float boost = 1.0f;
+  
+  /** Omit norms for field. */
+  protected Boolean omitNorms = false;
+  
+  /** Omit term frequency and position for field. */
+  protected Boolean omitTermFreqAndPos = false;
 
   /**
    * Constructor.
@@ -61,5 +70,41 @@ public abstract class AbstractFieldAttributes implements FieldAttributes {
 
   public void setType(String type) {
     this.type = type;
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public float boost() {
+    return boost;
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Boolean omitNorms() {
+    return omitNorms;
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Boolean omitTermFrequencyAndPositions() {
+    return omitTermFreqAndPos;
+  }
+
+  public void setBoost(float boost) {
+    this.boost = boost;
+  }
+
+  public void setOmitNorms(Boolean omitNorms) {
+    this.omitNorms = omitNorms;
+  }
+
+  public void setOmitTermFreqAndPos(Boolean omitTermFreqAndPos) {
+    this.omitTermFreqAndPos = omitTermFreqAndPos;
   }
 }

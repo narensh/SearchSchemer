@@ -8,7 +8,9 @@ import java.util.Map;
 import com.sematext.searchschemer.client.ConfigurationType;
 import com.sematext.searchschemer.index.FieldAttributes;
 import com.sematext.searchschemer.index.IndexStructure;
+import com.sematext.searchschemer.index.elasticsearch.Analyzed;
 import com.sematext.searchschemer.type.Mapper;
+import com.sematext.searchschemer.type.elasticsearch.ElasticSearchMappingsNames;
 
 /**
  * Implementation of {@link IndexStructureWriter} for Elasticsearch.
@@ -26,10 +28,10 @@ public class ElasticsearchIndexStructureWriter extends AbstractIndexStructureWri
   @Override
   protected void write(IndexStructure structure, Writer writer) throws IOException {
     writer.write("{\n");
-    writer.write(" \"mappings\" : {\n");
-    writer.write("  \"type\" : {\n");
+    writer.write(" \"" + ElasticSearchMappingsNames.MAPPINGS + "\" : {\n");
+    writer.write("  \"" + ElasticSearchMappingsNames.TYPE + "\" : {\n");
     if (!structure.fields().isEmpty()) {
-      writer.write("   \"properties\" : {\n");
+      writer.write("   \"" + ElasticSearchMappingsNames.PROPERTIES + "\" : {\n");
       Iterator<Map.Entry<String, FieldAttributes>> itr = structure.fields().entrySet().iterator();
       while (itr.hasNext()) {
         Map.Entry<String, FieldAttributes> field = itr.next();
@@ -45,7 +47,7 @@ public class ElasticsearchIndexStructureWriter extends AbstractIndexStructureWri
       if (!structure.fields().isEmpty()) {
         writer.write(",\n");
       }
-      writer.write("   \"dynamic_templates\" : [\n");
+      writer.write("   \"" + ElasticSearchMappingsNames.DYNAMIC_TEMPLATES + "\" : [\n");
       Iterator<Map.Entry<String, FieldAttributes>> itr = structure.dynamicFields().entrySet().iterator();
       while (itr.hasNext()) {
         Map.Entry<String, FieldAttributes> field = itr.next();
@@ -78,11 +80,11 @@ public class ElasticsearchIndexStructureWriter extends AbstractIndexStructureWri
    */
   private void writeDynamicTemplate(String name, FieldAttributes attr, Writer writer) throws IOException {
     writer.write("    {\n");
-    writer.write("     \"template_" + name.replaceAll("\\*", "") + "\" : {\n");
-    writer.write("      \"match\" : \"" + name + "\",\n");
-    writer.write("      \"match_mapping_type\" : \"" + Mapper.getTypeName(ConfigurationType.ELASTICSEARCH, attr.getFieldType()) + "\",\n");
+    writer.write("     \"" + ElasticSearchMappingsNames.TEMPLATE + "" + name.replaceAll("\\*", "") + "\" : {\n");
+    writer.write("      \"" + ElasticSearchMappingsNames.MATCH + "\" : \"" + name + "\",\n");
+    writer.write("      \"" + ElasticSearchMappingsNames.MATCH_MAPPING_TYPE + "\" : \"" + Mapper.getTypeName(ConfigurationType.ELASTICSEARCH, attr.getFieldType()) + "\",\n");
     writer.write("  ");
-    writeField("mapping", attr, writer);
+    writeField(ElasticSearchMappingsNames.MAPPING, attr, writer);
     writer.write("\n");
     writer.write("     }\n");
     writer.write("    }");
@@ -103,16 +105,26 @@ public class ElasticsearchIndexStructureWriter extends AbstractIndexStructureWri
   private void writeField(String name, FieldAttributes attr, Writer writer) throws IOException {
     writer.write("    \"");
     writer.write(name);
-    writer.write("\" : { \"type\" : \"");
+    writer.write("\" : { \"" + ElasticSearchMappingsNames.TYPE + "\" : \"");
     writer.write(Mapper.getTypeName(ConfigurationType.ELASTICSEARCH, attr.getFieldType()));
-    writer.write("\", \"store\" : \"");
+    writer.write("\", \"" + ElasticSearchMappingsNames.STORE + "\" : \"");
     writer.write(attr.isStored() ? "yes" : "no");
-    writer.write("\", \"index\" : \"");
+    writer.write("\", \"" + ElasticSearchMappingsNames.INDEX + "\" : \"");
     if (attr.isIndexed()) {
-      writer.write(attr.isAnalyzed() ? "analyzed" : "not_analyzed");
+      writer.write(attr.isAnalyzed() ? Analyzed.ANALYZED.toString().toLowerCase() : Analyzed.NOT_ANALYZED.toString().toLowerCase());
     } else {
-      writer.write("no");
+      writer.write(Analyzed.NO.toString().toLowerCase());
     }
-    writer.write("\" }");
+    writer.write("\"");
+    if (attr.omitNorms()) {
+      writer.write(", \"" + ElasticSearchMappingsNames.OMIT_NORMS + "\" : \"yes\"" );
+    }
+    if (attr.omitTermFrequencyAndPositions()) {
+      writer.write(", \"" + ElasticSearchMappingsNames.OMIT_FREQ_AND_POSITIONS + "\" : \"yes\"" );
+    }
+    if (attr.boost() != 1.0f) {
+      writer.write(", \"" + ElasticSearchMappingsNames.BOOST + "\" : \"" + attr.boost() + "\"" );
+    }
+    writer.write(" }");
   }
 }
