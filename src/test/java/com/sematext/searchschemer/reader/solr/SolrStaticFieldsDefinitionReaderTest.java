@@ -24,7 +24,7 @@ public class SolrStaticFieldsDefinitionReaderTest extends TestCase {
     assertEquals(1, reader.readFields().size());
     FieldAttributes field = reader.readFields().get(0);
     assertEquals("id", field.name());
-    assertEquals(FieldType.STRING, field.getFieldType());
+    assertEquals(FieldType.STRING, field.fieldType());
     assertTrue(field.indexed());
     assertTrue(field.store());
     assertFalse(field.analyzed());
@@ -37,7 +37,7 @@ public class SolrStaticFieldsDefinitionReaderTest extends TestCase {
     assertEquals(1, reader.readFields().size());
     FieldAttributes field = reader.readFields().get(0);
     assertEquals("id", field.name());
-    assertEquals(FieldType.TEXT, field.getFieldType());
+    assertEquals(FieldType.TEXT, field.fieldType());
     assertTrue(field.indexed());
     assertTrue(field.store());
     assertTrue(field.analyzed());

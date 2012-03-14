@@ -49,7 +49,7 @@ public class SenseidbIndexStructureWriter extends AbstractIndexStructureWriter {
     writer.write(" <column name=\"");
     writer.write(fieldName);
     writer.write("\" type=\"");
-    writer.write(Mapper.getTypeName(ConfigurationType.SENSEIDB, attr.getFieldType()));
+    writer.write(Mapper.getTypeName(ConfigurationType.SENSEIDB, attr.fieldType()));
     writer.write("\" />\n");
   }
 }

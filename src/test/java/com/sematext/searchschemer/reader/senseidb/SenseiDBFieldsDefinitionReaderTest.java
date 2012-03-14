@@ -25,7 +25,7 @@ public class SenseiDBFieldsDefinitionReaderTest extends TestCase {
     FieldAttributes field = reader.readFields().get(0);
     assertNotNull(field);
     assertEquals("contents", field.name());
-    assertEquals(FieldType.TEXT, field.getFieldType());
+    assertEquals(FieldType.TEXT, field.fieldType());
     assertTrue(field.store());
     assertTrue(field.analyzed());
     assertTrue(field.multiValued());

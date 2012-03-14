@@ -1,3 +1,9 @@
+Version: 0.0.5
+Date: 2012-03-13
+Changes:
+ * Ability to read and write boost, omit norms and omit term frequency and positions 
+
+------
 Version: 0.0.4
 Date: 2012-03-13
 Changes:

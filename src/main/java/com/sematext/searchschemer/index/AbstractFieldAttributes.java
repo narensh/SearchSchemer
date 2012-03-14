@@ -39,7 +39,7 @@ public abstract class AbstractFieldAttributes implements FieldAttributes {
    * {@inheritDoc}
    */
   @Override
-  public FieldType getFieldType() {
+  public FieldType fieldType() {
     Map<FieldType, String> types = Mapper.getMappings(getConfigurationType());
     for (Map.Entry<FieldType, String> entry : types.entrySet()) {
       if (entry.getValue().compareTo(type.toLowerCase()) == 0) {

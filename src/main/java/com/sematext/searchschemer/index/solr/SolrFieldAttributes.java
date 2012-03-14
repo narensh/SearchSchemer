@@ -50,7 +50,7 @@ public final class SolrFieldAttributes extends AbstractFieldAttributes {
    */
   @Override
   public Boolean analyzed() {
-    if (indexed && getFieldType() != FieldType.STRING) {
+    if (indexed && fieldType() != FieldType.STRING) {
       return true;
     }
     return false;

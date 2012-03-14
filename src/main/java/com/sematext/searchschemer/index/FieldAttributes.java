@@ -14,7 +14,7 @@ public interface FieldAttributes {
    * 
    * @return field type
    */
-  public FieldType getFieldType();
+  public FieldType fieldType();
 
   /**
    * Is field stored.

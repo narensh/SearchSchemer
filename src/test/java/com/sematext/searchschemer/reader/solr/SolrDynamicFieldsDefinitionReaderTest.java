@@ -18,6 +18,6 @@ public class SolrDynamicFieldsDefinitionReaderTest extends TestCase {
     FieldAttributes field = reader.readFields().get(0);
     assertNotNull(field);
     assertEquals("*_i", field.name());
-    assertEquals(FieldType.INTEGER, field.getFieldType());
+    assertEquals(FieldType.INTEGER, field.fieldType());
   }
 }

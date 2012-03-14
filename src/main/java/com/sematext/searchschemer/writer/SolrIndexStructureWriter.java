@@ -55,7 +55,7 @@ public class SolrIndexStructureWriter extends AbstractIndexStructureWriter {
     writer.write(" name=\"");
     writer.write(fieldName);
     writer.write("\" type=\"");
-    writer.write(Mapper.getTypeName(ConfigurationType.SOLR, attr.getFieldType()));
+    writer.write(Mapper.getTypeName(ConfigurationType.SOLR, attr.fieldType()));
     writer.write("\" indexed=\"");
     writer.write(attr.indexed().toString().toLowerCase());
     writer.write("\" stored=\"");

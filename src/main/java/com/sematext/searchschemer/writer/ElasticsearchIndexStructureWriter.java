@@ -82,7 +82,7 @@ public class ElasticsearchIndexStructureWriter extends AbstractIndexStructureWri
     writer.write("    {\n");
     writer.write("     \"" + ElasticSearchMappingsNames.TEMPLATE + "" + name.replaceAll("\\*", "") + "\" : {\n");
     writer.write("      \"" + ElasticSearchMappingsNames.MATCH + "\" : \"" + name + "\",\n");
-    writer.write("      \"" + ElasticSearchMappingsNames.MATCH_MAPPING_TYPE + "\" : \"" + Mapper.getTypeName(ConfigurationType.ELASTICSEARCH, attr.getFieldType()) + "\",\n");
+    writer.write("      \"" + ElasticSearchMappingsNames.MATCH_MAPPING_TYPE + "\" : \"" + Mapper.getTypeName(ConfigurationType.ELASTICSEARCH, attr.fieldType()) + "\",\n");
     writer.write("  ");
     writeField(ElasticSearchMappingsNames.MAPPING, attr, writer);
     writer.write("\n");
@@ -106,7 +106,7 @@ public class ElasticsearchIndexStructureWriter extends AbstractIndexStructureWri
     writer.write("    \"");
     writer.write(name);
     writer.write("\" : { \"" + ElasticSearchMappingsNames.TYPE + "\" : \"");
-    writer.write(Mapper.getTypeName(ConfigurationType.ELASTICSEARCH, attr.getFieldType()));
+    writer.write(Mapper.getTypeName(ConfigurationType.ELASTICSEARCH, attr.fieldType()));
     writer.write("\", \"" + ElasticSearchMappingsNames.STORE + "\" : \"");
     writer.write(attr.store() ? "yes" : "no");
     writer.write("\", \"" + ElasticSearchMappingsNames.INDEX + "\" : \"");

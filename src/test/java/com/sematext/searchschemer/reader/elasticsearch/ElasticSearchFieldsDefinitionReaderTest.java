@@ -32,7 +32,7 @@ public class ElasticSearchFieldsDefinitionReaderTest extends TestCase {
     assertEquals(1, reader.readFields().size());
     FieldAttributes field = reader.readFields().get(0);
     assertEquals("id", field.name());
-    assertEquals(FieldType.LONG, field.getFieldType());
+    assertEquals(FieldType.LONG, field.fieldType());
     assertTrue(field.analyzed());
     assertTrue(field.multiValued());
     assertTrue(field.indexed());
