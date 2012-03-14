@@ -26,7 +26,7 @@ public abstract class AbstractFieldAttributes implements FieldAttributes {
   protected Boolean omitNorms = false;
   
   /** Omit term frequency and position for field. */
-  protected Boolean omitTermFreqAndPos = false;
+  protected Boolean omitTermFreqAndPositions = false;
 
   /**
    * Constructor.
@@ -93,7 +93,7 @@ public abstract class AbstractFieldAttributes implements FieldAttributes {
    */
   @Override
   public Boolean omitTermFrequencyAndPositions() {
-    return omitTermFreqAndPos;
+    return omitTermFreqAndPositions;
   }
 
   public void setBoost(float boost) {
@@ -104,7 +104,7 @@ public abstract class AbstractFieldAttributes implements FieldAttributes {
     this.omitNorms = omitNorms;
   }
 
-  public void setOmitTermFreqAndPos(Boolean omitTermFreqAndPos) {
-    this.omitTermFreqAndPos = omitTermFreqAndPos;
+  public void setOmitTermFreqAndPositions(Boolean omitTermFreqAndPositions) {
+    this.omitTermFreqAndPositions = omitTermFreqAndPositions;
   }
 }

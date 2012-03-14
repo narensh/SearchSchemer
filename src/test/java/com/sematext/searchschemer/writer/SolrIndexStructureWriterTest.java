@@ -67,4 +67,21 @@ public class SolrIndexStructureWriterTest extends TestCase {
         writer.toString());
     writer.close();
   }
+  
+  @Test
+  public void testWriteNonDynamicWithAdditionalAttributes() throws Exception {
+    IndexStructure structure = new BasicIndexStructure();
+    SolrFieldAttributes field = new SolrFieldAttributes("cat", "string", true, true, false);
+    field.setOmitNorms(true);
+    field.setOmitTermFreqAndPositions(true);
+    field.setBoost(2.0f);
+    structure.addField("cat", field, false);
+
+    StringWriter writer = new StringWriter();
+    SolrIndexStructureWriter solrIndexStructurWriter = new SolrIndexStructureWriter();
+    solrIndexStructurWriter.write(structure, writer);
+
+    assertEquals("<field name=\"cat\" type=\"string\" indexed=\"true\" stored=\"true\" omitNorms=\"true\" omitTermFreqAndPositions=\"true\" boost=\"2.0\" />\n", writer.toString());
+    writer.close();
+  }
 }

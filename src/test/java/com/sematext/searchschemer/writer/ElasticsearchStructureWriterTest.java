@@ -62,7 +62,7 @@ public class ElasticsearchStructureWriterTest extends TestCase {
     IndexStructure structure = new BasicIndexStructure();
     ElasticSearchFieldAttributes field = new ElasticSearchFieldAttributes("cat", "string", "yes", "analyzed");
     field.setOmitNorms(true);
-    field.setOmitTermFreqAndPos(true);
+    field.setOmitTermFreqAndPositions(true);
     field.setBoost(2.0f);
     structure.addField("cat", field, false);
 

@@ -183,7 +183,7 @@ public class ElasticSearchFieldsDefinitionReader {
     } else if (ElasticSearchMappingsNames.INDEX.compareTo(propertyName) == 0) {
       field.setAnalyzed(value);
     } else if (ElasticSearchMappingsNames.OMIT_FREQ_AND_POSITIONS.compareTo(propertyName) == 0) {
-      field.setOmitTermFreqAndPos(Boolean.parseBoolean(value));
+      field.setOmitTermFreqAndPositions(Boolean.parseBoolean(value));
     } else if (ElasticSearchMappingsNames.OMIT_NORMS.compareTo(propertyName) == 0) {
       field.setOmitNorms(Boolean.parseBoolean(value));
     } else if (ElasticSearchMappingsNames.BOOST.compareTo(propertyName) == 0) {
