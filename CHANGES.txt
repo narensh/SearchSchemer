@@ -1,5 +1,11 @@
+Version: 0.0.6
+Date: 2012-03-14
+Changes:
+ * Handle multiple types in ElasticSearch mappings file
+
+------
 Version: 0.0.5
-Date: 2012-03-13
+Date: 2012-03-14
 Changes:
  * Ability to read and write boost, omit norms and omit term frequency and positions 
 

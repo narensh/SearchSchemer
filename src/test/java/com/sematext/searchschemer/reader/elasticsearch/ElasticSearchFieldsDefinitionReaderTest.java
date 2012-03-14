@@ -12,7 +12,7 @@ import com.sematext.searchschemer.type.FieldType;
 
 public class ElasticSearchFieldsDefinitionReaderTest extends TestCase {
   @Test
-  public void testReaderMultipleMappings() throws Exception {
+  public void testReaderReadMappings() throws Exception {
     ElasticSearchFieldsDefinitionReader reader = new ElasticSearchFieldsDefinitionReader(new File(getClass().getClassLoader()
         .getResource("elasticsearch/elasticsearch_test_mappings.json").getFile()));
     assertEquals(7, reader.readFields().size());
@@ -31,7 +31,7 @@ public class ElasticSearchFieldsDefinitionReaderTest extends TestCase {
         .getResource("elasticsearch/elasticsearch_test_mappings_single_field.json").getFile()));
     assertEquals(1, reader.readFields().size());
     FieldAttributes field = reader.readFields().get(0);
-    assertEquals("id", field.name());
+    assertEquals("text.id", field.name());
     assertEquals(FieldType.LONG, field.fieldType());
     assertTrue(field.analyzed());
     assertTrue(field.multiValued());
@@ -46,7 +46,7 @@ public class ElasticSearchFieldsDefinitionReaderTest extends TestCase {
     List<FieldAttributes> fields = reader.readFields();
     assertEquals(2, fields.size()); 
     FieldAttributes field1, field2;
-    if (fields.get(0).name().compareTo("test") == 0) {
+    if (fields.get(0).name().compareTo("text.test") == 0) {
       field1 = fields.get(0);
       field2 = fields.get(1);
     } else {
@@ -54,13 +54,13 @@ public class ElasticSearchFieldsDefinitionReaderTest extends TestCase {
       field2 = fields.get(0);
     }
     // field 1
-    assertEquals("test", field1.name());
+    assertEquals("text.test", field1.name());
     assertTrue(field1.analyzed());
     assertTrue(field1.multiValued());
     assertTrue(field1.indexed());
     assertTrue(field1.store());
     // field 2
-    assertEquals("test.facet", field2.name());
+    assertEquals("text.test.facet", field2.name());
     assertFalse(field2.analyzed());
     assertTrue(field2.multiValued());
     assertTrue(field2.indexed());
@@ -73,7 +73,7 @@ public class ElasticSearchFieldsDefinitionReaderTest extends TestCase {
         .getResource("elasticsearch/elasticsearch_test_mappings_norms.json").getFile()));
     assertEquals(1, reader.readFields().size());
     FieldAttributes field = reader.readFields().get(0);
-    assertEquals("id", field.name());
+    assertEquals("text.id", field.name());
     assertTrue(field.analyzed());
     assertTrue(field.multiValued());
     assertTrue(field.indexed());
@@ -81,5 +81,24 @@ public class ElasticSearchFieldsDefinitionReaderTest extends TestCase {
     assertTrue(field.omitNorms());
     assertTrue(field.omitTermFrequencyAndPositions());
     assertEquals(2.0f, field.boost());
+  }
+  
+  @Test
+  public void testReaderMultipleMappings() throws Exception {
+    ElasticSearchFieldsDefinitionReader reader = new ElasticSearchFieldsDefinitionReader(new File(getClass().getClassLoader()
+        .getResource("elasticsearch/elasticsearch_test_multiple_mappings.json").getFile()));
+    List<FieldAttributes> fields = reader.readFields();
+    assertEquals(14, fields.size());
+    boolean idText1Exists = false;
+    boolean idText2Exists = false;
+    for (FieldAttributes field : fields) {
+      if (field.name().compareTo("text1.id") == 0) {
+        idText1Exists = true;
+      } else if (field.name().compareTo("text2.id") == 0) {
+        idText2Exists = true;
+      }
+    }
+    assertTrue(idText1Exists);
+    assertTrue(idText2Exists);
   }
 }

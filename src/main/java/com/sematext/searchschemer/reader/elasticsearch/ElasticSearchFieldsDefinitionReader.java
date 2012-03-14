@@ -51,16 +51,18 @@ public class ElasticSearchFieldsDefinitionReader {
     reader.beginObject();
     JsonToken token = reader.peek();
     if (JsonToken.BEGIN_OBJECT == token) {
-      readProperties();
+      readProperties(null);
     } else if (JsonToken.NAME == token) {
       String name = reader.nextName();
       if (ElasticSearchMappingsNames.MAPPINGS.compareTo(name) == 0) {
         reader.beginObject();
-        reader.nextName();
-        readProperties();
+        while (JsonToken.END_OBJECT != reader.peek()) {
+          String typeName = reader.nextName();
+          readProperties(typeName);
+        }
         reader.endObject();
       } else {
-        readProperties();
+        readProperties(name);
       }
 
     }
@@ -70,8 +72,11 @@ public class ElasticSearchFieldsDefinitionReader {
 
   /**
    * Read properties.
+   * 
+   * @param typeName
+   *          name of the type, can be <code>null</code>
    */
-  private void readProperties() throws IOException {
+  private void readProperties(String typeName) throws IOException {
     reader.beginObject();
     while (true) {
       JsonToken token = reader.peek();
@@ -79,7 +84,7 @@ public class ElasticSearchFieldsDefinitionReader {
         String name = reader.nextName();
         if (ElasticSearchMappingsNames.PROPERTIES.compareTo(name) == 0) {
           reader.beginObject();
-          readFieldMappings();
+          readFieldMappings(typeName);
           reader.endObject();
           break;
         } else {
@@ -94,8 +99,11 @@ public class ElasticSearchFieldsDefinitionReader {
 
   /**
    * Read fields.
+   * 
+   * @param typeName
+   *          name of the type, can be <code>null</code>
    */
-  private void readFieldMappings() throws IOException {
+  private void readFieldMappings(String typeName) throws IOException {
     JsonToken token = reader.peek();
     while (JsonToken.NAME == token) {
       String name = reader.nextName();
@@ -103,10 +111,10 @@ public class ElasticSearchFieldsDefinitionReader {
       String propertyName = reader.nextName();
       String value = reader.nextString();
       if (ElasticSearchMappingsNames.MULTI_FIELD.compareTo(value) == 0) {
-        handleMultiField(name);
+        handleMultiField(name, typeName);
       } else {
         ElasticSearchFieldAttributes field = new ElasticSearchFieldAttributes();
-        field.setName(name);
+        setName(field, typeName, name);
         setProperty(propertyName, value, field);
         handleFieldAttributes(field);
         fields.add(field);
@@ -121,21 +129,21 @@ public class ElasticSearchFieldsDefinitionReader {
    * 
    * @param name
    *          field name
-   * @param propertyName
-   *          property name
+   * @param typeName
+   *          name of the type
    * @throws IOException
    *           thrown when I/O error occurs
    */
-  protected void handleMultiField(String name) throws IOException {
+  protected void handleMultiField(String name, String typeName) throws IOException {
     reader.nextName();
     reader.beginObject();
     while (JsonToken.END_OBJECT != reader.peek()) {
       ElasticSearchFieldAttributes field = new ElasticSearchFieldAttributes();
       String innerName = reader.nextName();
       if (innerName.compareTo(name) == 0) {
-        field.setName(name);
+        setName(field, typeName, name);
       } else {
-        field.setName(name + "." + innerName);
+        setName(field, typeName, name + "." + innerName);
       }
       reader.beginObject();
       handleFieldAttributes(field);
@@ -188,6 +196,24 @@ public class ElasticSearchFieldsDefinitionReader {
       field.setOmitNorms(Boolean.parseBoolean(value));
     } else if (ElasticSearchMappingsNames.BOOST.compareTo(propertyName) == 0) {
       field.setBoost(Float.parseFloat(value));
+    }
+  }
+
+  /**
+   * Sets field name.
+   * 
+   * @param field
+   *          field to set the name on
+   * @param typeName
+   *          name of the type or <code>null</code>
+   * @param name
+   *          name
+   */
+  private void setName(ElasticSearchFieldAttributes field, String typeName, String name) {
+    if (typeName == null) {
+      field.setName(name);
+    } else {
+      field.setName(typeName + "." + name);
     }
   }
 
