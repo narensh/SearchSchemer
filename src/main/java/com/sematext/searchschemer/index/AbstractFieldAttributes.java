@@ -56,7 +56,7 @@ public abstract class AbstractFieldAttributes implements FieldAttributes {
    */
   public abstract ConfigurationType getConfigurationType();
 
-  public String getName() {
+  public String name() {
     return name;
   }
 

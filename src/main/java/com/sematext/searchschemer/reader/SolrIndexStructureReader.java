@@ -34,10 +34,10 @@ public class SolrIndexStructureReader implements IndexStructureReader {
       List<FieldAttributes> dynamicFields = readerDynamic.readFields();
       IndexStructure structure = new BasicIndexStructure();
       for (FieldAttributes field : fields) {
-        structure.addField(field.getName(), field);
+        structure.addField(field.name(), field);
       }
       for (FieldAttributes field : dynamicFields) {
-        structure.addField(field.getName(), field, true);
+        structure.addField(field.name(), field, true);
       }
       return structure;
     } catch (SAXException ex) {

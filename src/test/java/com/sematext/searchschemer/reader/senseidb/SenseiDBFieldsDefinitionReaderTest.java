@@ -24,11 +24,11 @@ public class SenseiDBFieldsDefinitionReaderTest extends TestCase {
     assertEquals(1, reader.readFields().size());
     FieldAttributes field = reader.readFields().get(0);
     assertNotNull(field);
-    assertEquals("contents", field.getName());
+    assertEquals("contents", field.name());
     assertEquals(FieldType.TEXT, field.getFieldType());
-    assertTrue(field.isStored());
-    assertTrue(field.isAnalyzed());
-    assertTrue(field.isMultiValued());
-    assertTrue(field.isIndexed());
+    assertTrue(field.store());
+    assertTrue(field.analyzed());
+    assertTrue(field.multiValued());
+    assertTrue(field.indexed());
   }
 }

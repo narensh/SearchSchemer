@@ -21,35 +21,35 @@ public interface FieldAttributes {
    * 
    * @return <code>true</code> if field is stored, <code>false</code> otherwise.
    */
-  public Boolean isStored();
+  public Boolean store();
 
   /**
    * Return field name.
    * 
    * @return field name
    */
-  public String getName();
+  public String name();
 
   /**
    * Can field have multiple values.
    * 
    * @return <code>true</code> if field is multi valued, <code>false</code> otherwise.
    */
-  public Boolean isMultiValued();
+  public Boolean multiValued();
 
   /**
    * Is field indexed.
    * 
    * @return <code>true</code> if field is indexed, <code>false</code> otherwise.
    */
-  public Boolean isIndexed();
+  public Boolean indexed();
 
   /**
    * Is field analyzed.
    * 
    * @return <code>true</code> if field is analyzed, <code>false</code> otherwise.
    */
-  public abstract Boolean isAnalyzed();
+  public abstract Boolean analyzed();
 
   /**
    * Returns field boost.

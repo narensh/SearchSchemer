@@ -44,7 +44,7 @@ public final class ElasticSearchFieldAttributes extends AbstractFieldAttributes 
    * {@inheritDoc}
    */
   @Override
-  public Boolean isAnalyzed() {
+  public Boolean analyzed() {
     if (Analyzed.ANALYZED.toString().compareTo(analyzed.toUpperCase()) == 0) {
       return true;
     } else {
@@ -56,7 +56,7 @@ public final class ElasticSearchFieldAttributes extends AbstractFieldAttributes 
    * {@inheritDoc}
    */
   @Override
-  public Boolean isStored() {
+  public Boolean store() {
     if (Stored.YES.toString().compareTo(stored.toUpperCase()) == 0) {
       return true;
     } else {
@@ -68,7 +68,7 @@ public final class ElasticSearchFieldAttributes extends AbstractFieldAttributes 
    * {@inheritDoc}
    */
   @Override
-  public Boolean isIndexed() {
+  public Boolean indexed() {
     if (Analyzed.NO.toString().compareTo(analyzed.toUpperCase()) == 0) {
       return false;
     } else {
@@ -80,7 +80,7 @@ public final class ElasticSearchFieldAttributes extends AbstractFieldAttributes 
    * {@inheritDoc}
    */
   @Override
-  public Boolean isMultiValued() {
+  public Boolean multiValued() {
     return true; // this is always true in case of ElasticSearch as in Lucene
   }
 

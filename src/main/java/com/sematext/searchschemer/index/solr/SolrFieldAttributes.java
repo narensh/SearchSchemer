@@ -49,7 +49,7 @@ public final class SolrFieldAttributes extends AbstractFieldAttributes {
    * {@inheritDoc}
    */
   @Override
-  public Boolean isAnalyzed() {
+  public Boolean analyzed() {
     if (indexed && getFieldType() != FieldType.STRING) {
       return true;
     }
@@ -60,7 +60,7 @@ public final class SolrFieldAttributes extends AbstractFieldAttributes {
    * {@inheritDoc}
    */
   @Override
-  public Boolean isStored() {
+  public Boolean store() {
     return stored;
   }
 
@@ -68,7 +68,7 @@ public final class SolrFieldAttributes extends AbstractFieldAttributes {
    * {@inheritDoc}
    */
   @Override
-  public Boolean isMultiValued() {
+  public Boolean multiValued() {
     return multiValued;
   }
 
@@ -76,7 +76,7 @@ public final class SolrFieldAttributes extends AbstractFieldAttributes {
    * {@inheritDoc}
    */
   @Override
-  public Boolean isIndexed() {
+  public Boolean indexed() {
     return indexed;
   }
 

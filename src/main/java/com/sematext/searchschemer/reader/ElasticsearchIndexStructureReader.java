@@ -28,7 +28,7 @@ public class ElasticsearchIndexStructureReader implements IndexStructureReader {
     List<FieldAttributes> fields = reader.readFields();
     IndexStructure structure = new BasicIndexStructure();
     for (FieldAttributes field : fields) {
-      structure.addField(field.getName(), field);
+      structure.addField(field.name(), field);
     }
     return structure;
   }

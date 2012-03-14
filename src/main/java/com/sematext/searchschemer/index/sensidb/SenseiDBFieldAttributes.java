@@ -46,7 +46,7 @@ public final class SenseiDBFieldAttributes extends AbstractFieldAttributes {
    * {@inheritDoc}
    */
   @Override
-  public Boolean isAnalyzed() {
+  public Boolean analyzed() {
     if (Analyzed.ANALYZED.toString().compareTo(index.toUpperCase()) == 0) {
       return true;
     }
@@ -57,7 +57,7 @@ public final class SenseiDBFieldAttributes extends AbstractFieldAttributes {
    * {@inheritDoc}
    */
   @Override
-  public Boolean isStored() {
+  public Boolean store() {
     if (Stored.YES.toString().compareTo(store.toUpperCase()) == 0) {
       return true;
     }
@@ -68,7 +68,7 @@ public final class SenseiDBFieldAttributes extends AbstractFieldAttributes {
    * {@inheritDoc}
    */
   @Override
-  public Boolean isIndexed() {
+  public Boolean indexed() {
     if (Analyzed.NO.toString().compareTo(index.toUpperCase()) == 0) {
       return false;
     }
@@ -79,7 +79,7 @@ public final class SenseiDBFieldAttributes extends AbstractFieldAttributes {
    * {@inheritDoc}
    */
   @Override
-  public Boolean isMultiValued() {
+  public Boolean multiValued() {
     return true; // always true in SenseiDB as in Lucene
   }
 

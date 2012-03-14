@@ -23,11 +23,11 @@ public class SolrStaticFieldsDefinitionReaderTest extends TestCase {
         .getResource("solr/test_schema_small.xml").getFile()));
     assertEquals(1, reader.readFields().size());
     FieldAttributes field = reader.readFields().get(0);
-    assertEquals("id", field.getName());
+    assertEquals("id", field.name());
     assertEquals(FieldType.STRING, field.getFieldType());
-    assertTrue(field.isIndexed());
-    assertTrue(field.isStored());
-    assertFalse(field.isAnalyzed());
+    assertTrue(field.indexed());
+    assertTrue(field.store());
+    assertFalse(field.analyzed());
   }
   
   @Test
@@ -36,10 +36,10 @@ public class SolrStaticFieldsDefinitionReaderTest extends TestCase {
         .getResource("solr/test_schema_small_string_text.xml").getFile()));
     assertEquals(1, reader.readFields().size());
     FieldAttributes field = reader.readFields().get(0);
-    assertEquals("id", field.getName());
+    assertEquals("id", field.name());
     assertEquals(FieldType.TEXT, field.getFieldType());
-    assertTrue(field.isIndexed());
-    assertTrue(field.isStored());
-    assertTrue(field.isAnalyzed());
+    assertTrue(field.indexed());
+    assertTrue(field.store());
+    assertTrue(field.analyzed());
   }
 }
