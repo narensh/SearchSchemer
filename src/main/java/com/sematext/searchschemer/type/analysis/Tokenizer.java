@@ -8,5 +8,4 @@ import com.sematext.searchschemer.type.Writable;
  * @author sematext, http://www.sematext.com/
  */
 public interface Tokenizer extends Writable {
-
 }
