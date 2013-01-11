@@ -21,11 +21,13 @@ public class StringUtilities {
    *          string writer
    * @param writableList
    *          list of {@link Writable} objects
+   * @param separator
+   *          separator
    */
-  public static void processWritableList(StringWriter writer, List<? extends Writable> writableList) {
+  public static void processWritableList(StringWriter writer, List<? extends Writable> writableList, String separator) {
     for (Writable writable : writableList) {
       writer.write(writable.writableForm());
-      writer.write("\n");
+      writer.write(separator);
     }
   }
 }

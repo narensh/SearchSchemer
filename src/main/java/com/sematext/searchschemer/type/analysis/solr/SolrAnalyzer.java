@@ -4,8 +4,8 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sematext.searchschemer.common.Constants;
 import com.sematext.searchschemer.type.analysis.Analyzer;
-import com.sematext.searchschemer.type.analysis.AnalyzerType;
 import com.sematext.searchschemer.type.analysis.CharFilter;
 import com.sematext.searchschemer.type.analysis.Filter;
 import com.sematext.searchschemer.type.analysis.Tokenizer;
@@ -17,7 +17,7 @@ import com.sematext.searchschemer.type.analysis.util.StringUtilities;
  * @author sematext, http://www.sematext.com/
  */
 public class SolrAnalyzer implements Analyzer {
-  private AnalyzerType type;
+  private SolrAnalyzerType type;
   private List<CharFilter> charFilters;
   private List<Filter> filters;
   private Tokenizer tokenizer;
@@ -28,7 +28,7 @@ public class SolrAnalyzer implements Analyzer {
    * @param type
    *          analyzer type
    */
-  public SolrAnalyzer(AnalyzerType type) {
+  public SolrAnalyzer(SolrAnalyzerType type) {
     this.type = type;
     charFilters = new ArrayList<CharFilter>();
     filters = new ArrayList<Filter>();
@@ -58,7 +58,7 @@ public class SolrAnalyzer implements Analyzer {
     this.tokenizer = tokenizer;
   }
 
-  public AnalyzerType getType() {
+  public SolrAnalyzerType getType() {
     return type;
   }
 
@@ -97,12 +97,12 @@ public class SolrAnalyzer implements Analyzer {
     }
     writer.write("\n");
     // process char filters
-    StringUtilities.processWritableList(writer, charFilters);
+    StringUtilities.processWritableList(writer, charFilters, Constants.NEW_LINE_CHARACTER);
     // process tokenizer
     writer.write(tokenizer.writableForm());
     writer.write("\n");
     // process filters
-    StringUtilities.processWritableList(writer, filters);
+    StringUtilities.processWritableList(writer, filters, Constants.NEW_LINE_CHARACTER);
     // close analyzer
     writer.write("</analyzer>");
     writer.write("\n");

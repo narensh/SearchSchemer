@@ -1,11 +1,15 @@
 package com.sematext.searchschemer.type.analysis;
 
+import java.io.StringWriter;
+
+import com.sematext.searchschemer.type.Writable;
+
 /**
  * Class representing attribute.
  * 
  * @author sematext, http://www.sematext.com/
  */
-public class Attribute {
+public class Attribute implements Writable {
   private String name;
   private String value;
 
@@ -29,5 +33,20 @@ public class Attribute {
 
   public String getValue() {
     return value;
+  }
+
+  /**
+   * (non-Javadoc)
+   * 
+   * @see com.sematext.searchschemer.type.Writable#writableForm()
+   */
+  @Override
+  public String writableForm() {
+    StringWriter writer = new StringWriter();
+    writer.write(name);
+    writer.write("=\"");
+    writer.write(value);
+    writer.write("=\"");
+    return writer.toString();
   }
 }
