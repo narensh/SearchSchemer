@@ -1,5 +1,3 @@
-image:https://travis-ci.org/sematext/SearchSchemer.png?branch=master["Build Status", link="https://travis-ci.org/sematext/SearchSchemer"]
-
 1. Introduction
 SearchSchemer is a simple application which allows to convert
 index structure between the following search engines:
