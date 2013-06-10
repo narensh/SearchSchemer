@@ -19,3 +19,5 @@ The inputType and outputType properties can take the following values:
  * solr          - for Solr schema.xml
  * elasticsearch - for ElasticSearch mappings file
  * senseidb      - for SenseiDB table definition 
+
+Continuous Integration environment for SearchSchemer project can be found at: https://travis-ci.org/sematext/SearchSchemer
