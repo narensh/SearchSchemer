@@ -1,13 +1,16 @@
-1. Introduction
+## Introduction ##
 SearchSchemer is a simple application which allows to convert
 index structure between the following search engines:
  * Apache Solr (http://lucene.apache.org/solr/)
  * ElasticSearch (http://www.elasticsearch.org/)
  * SenseiDB (http://www.senseidb.com/)
- 
-2. Using SearchSchemer
-To run SearchSchemer You should run the following command:
-java -jar SearchSchemer.jar --inputFile <value> --inputType <value>
+
+## Building ##
+mvn assembly:assembly
+
+## Using SearchSchemer ##
+To run:
+$ java -jar SearchSchemer.jar --inputFile <value> --inputType <value>
        --outputFile <value> --outputType <value>
 where:
   * inputFile  - configuration file to read
