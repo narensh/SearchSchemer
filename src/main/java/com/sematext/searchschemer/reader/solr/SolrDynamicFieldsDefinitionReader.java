@@ -1,11 +1,10 @@
 package com.sematext.searchschemer.reader.solr;
 
-import java.io.File;
-import java.util.ArrayList;
-
+import com.sematext.searchschemer.index.solr.SolrFieldAttributes;
 import org.apache.commons.digester3.Digester;
 
-import com.sematext.searchschemer.index.solr.SolrFieldAttributes;
+import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Reader for static fields defined in Solr schema.xml file.
@@ -31,9 +30,9 @@ public class SolrDynamicFieldsDefinitionReader extends SolrStaticFieldsDefinitio
   protected void initializeDigester() {
     digester = new Digester();
     digester.setNamespaceAware(true);
-    digester.addObjectCreate("schema/fields", ArrayList.class);
-    digester.addObjectCreate("schema/fields/dynamicField", SolrFieldAttributes.class);
-    digester.addSetProperties("schema/fields/dynamicField/");
-    digester.addSetNext("schema/fields/dynamicField", "add");
+    digester.addObjectCreate("schema/", ArrayList.class);
+    digester.addObjectCreate("schema/dynamicField", SolrFieldAttributes.class);
+    digester.addSetProperties("schema/dynamicField/");
+    digester.addSetNext("schema/dynamicField", "add");
   }
 }

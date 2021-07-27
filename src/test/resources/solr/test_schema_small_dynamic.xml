@@ -32,13 +32,10 @@
     </fieldType>
   </types>
 
-
-  <fields>
-    <field name="id" type="string" indexed="true" stored="true"
-      required="true" />
-    <dynamicField name="*_i" type="int" indexed="true"
-      stored="true" />
-  </fields>
+  <field name="id" type="string" indexed="true" stored="true"
+    required="true" />
+  <dynamicField name="*_i" type="int" indexed="true"
+    stored="true" />
 
   <uniqueKey>id</uniqueKey>
 

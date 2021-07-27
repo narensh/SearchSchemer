@@ -1,14 +1,13 @@
 package com.sematext.searchschemer.reader.solr;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-
+import com.sematext.searchschemer.index.FieldAttributes;
+import com.sematext.searchschemer.index.solr.SolrFieldAttributes;
 import org.apache.commons.digester3.Digester;
 import org.xml.sax.SAXException;
 
-import com.sematext.searchschemer.index.FieldAttributes;
-import com.sematext.searchschemer.index.solr.SolrFieldAttributes;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Reader for static fields defined in Solr schema.xml file.
@@ -53,9 +52,9 @@ public class SolrStaticFieldsDefinitionReader {
   protected void initializeDigester() {
     digester = new Digester();
     digester.setNamespaceAware(true);
-    digester.addObjectCreate("schema/fields", ArrayList.class);
-    digester.addObjectCreate("schema/fields/field", SolrFieldAttributes.class);
-    digester.addSetProperties("schema/fields/field/");
-    digester.addSetNext("schema/fields/field", "add");
+    digester.addObjectCreate("schema/", ArrayList.class);
+    digester.addObjectCreate("schema/field", SolrFieldAttributes.class);
+    digester.addSetProperties("schema/field/");
+    digester.addSetNext("schema/field", "add");
   }
 }

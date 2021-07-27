@@ -32,10 +32,7 @@
     </fieldType>
   </types>
 
-
-  <fields>
-    <field name="id" type="text" indexed="true" stored="true" required="true" />
-  </fields>
+  <field name="id" type="text" indexed="true" stored="true" required="true" />
 
   <uniqueKey>id</uniqueKey>
 
